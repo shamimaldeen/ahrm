@@ -1,0 +1,11 @@
+[25-Feb-2018 14:32:12 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting ',' or ';' in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/otController.php on line 9
+[25-Feb-2018 14:34:28 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting ',' or ';' in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/otController.php on line 9
+[25-Feb-2018 14:38:58 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting ',' or ';' in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/otController.php on line 9
+[25-Feb-2018 14:39:05 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting function (T_FUNCTION) in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/Controller.php on line 21
+[25-Feb-2018 14:40:12 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting function (T_FUNCTION) in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/Controller.php on line 21
+[25-Feb-2018 14:44:22 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting function (T_FUNCTION) in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/Controller.php on line 21
+[25-Feb-2018 14:45:12 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting function (T_FUNCTION) in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/Controller.php on line 21
+[25-Feb-2018 14:45:22 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting function (T_FUNCTION) in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/Controller.php on line 21
+[25-Feb-2018 14:48:29 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting function (T_FUNCTION) in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/Controller.php on line 21
+[25-Feb-2018 14:50:08 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting function (T_FUNCTION) in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/Controller.php on line 21
+[25-Feb-2018 14:52:35 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '<', expecting function (T_FUNCTION) in /home/roopokar/public_html/bvhrm/app/Http/Controllers/BackEndCon/Controller.php on line 21

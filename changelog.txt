@@ -1,0 +1,21 @@
+2018-10-25
+*food logic change
+-before : lunch-4hours,tiffin-8 hours,dinner-10 hours
+-now : lunch-4hours,tiffin-10 hours,dinner-12 hours
+
+<form class="form-horizontal" method="post" enctype="multipart/form-data" action="{{url('generate-payroll-submit')}}" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                {{ csrf_field() }}
+                             
+                <div class="form-group">
+                  <label class="col-md-2 control-label" style="text-align: right;padding: 5px 0px">
+                    Date Range for Payroll :
+                  </label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" id="defaultrange" name="dateRange" readonly="yes" style="background: white;padding: 0px 0px 0px 10px;text-align: center">
+                  </div>
+                  <div class="col-md-4">
+                    <input type="submit" class="btn btn-success btn-block" value="Generate Payroll">
+                  </div>
+                </div>
+                
+                </form>
