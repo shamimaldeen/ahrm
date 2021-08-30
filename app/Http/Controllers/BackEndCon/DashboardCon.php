@@ -93,6 +93,9 @@ class DashboardCon extends Controller
         $Adminminlink = $this->adminlink();
         $adminsublink = $this->adminsublink();
 
+
+        //dd($adminsublink);
+
 //probation employee list count
         if($id->suser_level=="1"){
             $employees=Employee::where('emp_joindate','!=','')
