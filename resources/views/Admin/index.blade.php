@@ -415,55 +415,41 @@
             <ul class="kt-menu__nav">
 
                 @if($id->id == '1000')
+                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Dev</span><i class=""></i></a>
+                        <div class="kt-menu__submenu  kt-menu__submenu--fixed kt-menu__submenu--left" style="width:1000px">
+                            <div class="kt-menu__subnav">
+                                <ul class="kt-menu__content">
+                                    <li class="kt-menu__item ">
+                                        <ul class="kt-menu__inner">
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('project-details')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Project Details</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('main-menu-view')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Main Men</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('sub-menu-view')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Sub Menu</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('priority')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Priority</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('appmodule')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">App Module</span></a></li>
+                                        </ul>
+                                    </li>
 
-                    <li class="mega-menu-dropdown mega-menu-full" aria-haspopup="true">
-                        <a href="javascript:;" class="dropdown-toggle" data-hover="megamenu-dropdown" data-close-others="true">
-                            Dev
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="mega-menu-content">
-                                    <div class="row">
-
-                                        <div class="col-md-4">
-                                            <ul class="mega-menu-submenu">
-                                                <li>
-                                                    <a href="{{url('project-details')}}">Project Details</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('main-menu-view')}}">Main Menu</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('sub-menu-view')}}">Sub Menu</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('priority')}}">Priority</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('appmodule')}}">App Module</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </ul>
+                            </div>
+                        </div>
                     </li>
                 @endif
-
-
                     @if($id->id=="1000")
 
                         @if(count($Adminminlink) > 0)
                             @foreach($Adminminlink as $showMainlink)
                                 @if($showMainlink->routeName == '#')
 
-                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">{{$showMainlink->Link_Name}}</span><i class="{{$showMainlink->icon}}"></i></a>
+
+
+                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"> {{$showMainlink->Link_Name}}</span><i class="{{$showMainlink->icon}}"></i></a>
+
                     <div class="kt-menu__submenu  kt-menu__submenu--fixed kt-menu__submenu--left" style="width:1000px">
                         <div class="kt-menu__subnav">
                             <ul class="kt-menu__content">
+
+
+
                                 <li class="kt-menu__item ">
 
                                     @if(count($adminsublink) > 0)
@@ -475,81 +461,114 @@
 
                                                     @if(Controller::previousLabelExist($showSubLink)=="1")
 
-                                                @else
+                            </ul>
 
-                                                    @endif
 
-                                    <h3 class="kt-menu__heading kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></h3>
+
+
+
                                     <ul class="kt-menu__inner">
+
                                         @else
+                                            <ul class="kt-menu__inner">
+                                                @endif
 
+                                                <h3 class="kt-menu__heading kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">&nbsp;{{$showSubLink->submenuname}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></h3>
 
-
-
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-																			<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																				<rect x="0" y="0" width="24" height="24" />
-																				<path d="M5.84026576,8 L18.1597342,8 C19.1999115,8 20.0664437,8.79732479 20.1528258,9.83390904 L20.8194924,17.833909 C20.9112219,18.9346631 20.0932459,19.901362 18.9924919,19.9930915 C18.9372479,19.9976952 18.8818364,20 18.8264009,20 L5.1735991,20 C4.0690296,20 3.1735991,19.1045695 3.1735991,18 C3.1735991,17.9445645 3.17590391,17.889153 3.18050758,17.833909 L3.84717425,9.83390904 C3.93355627,8.79732479 4.80008849,8 5.84026576,8 Z M10.5,10 C10.2238576,10 10,10.2238576 10,10.5 L10,11.5 C10,11.7761424 10.2238576,12 10.5,12 L13.5,12 C13.7761424,12 14,11.7761424 14,11.5 L14,10.5 C14,10.2238576 13.7761424,10 13.5,10 L10.5,10 Z" fill="#000000" />
-																				<path d="M10,8 L8,8 L8,7 C8,5.34314575 9.34314575,4 11,4 L13,4 C14.6568542,4 16,5.34314575 16,7 L16,8 L14,8 L14,7 C14,6.44771525 13.5522847,6 13,6 L11,6 C10.4477153,6 10,6.44771525 10,7 L10,8 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-																			</g>
-																		</svg></span><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>
-
-                                            @if(Controller::nextLabelExist($showSubLink)=="0")
-                                            @endif
-
-                                        @endif
-
-                                        @endif
-                                        @endforeach
-
-                                        @endif
+                                                @else
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>
+                                                    @if(Controller::nextLabelExist($showSubLink)=="0")
 
                                     </ul>
-                                </li>
-
-
-                                @else
-                                    @if($showMainlink->routeName!="user-priority-level")
-                                        <li class="mega-menu-dropdown mega-menu-full">
-                                            <a href="{{url('/')}}/{{$showMainlink->routeName}}">
-                                                <i class="{{$showMainlink->icon}}"></i>&nbsp;{{$showMainlink->Link_Name}}
-                                            </a>
-                                        </li>
-                                    @endif
-
-
-                                @endif
-                                @endforeach
-                                @endif
-                                @endif
-
-                                <li class="kt-menu__item ">
-                                    <h3 class="kt-menu__heading kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Profit Margins</span><i class="kt-menu__ver-arrow la la-angle-right"></i></h3>
-                                    <ul class="kt-menu__inner">
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Overall Profits</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Gross Profits</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Nett Profits</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Year to Date Reports</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Quarterly Profits</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Monthly Profits</span></a></li>
                                     </ul>
                                 </li>
-                                <li class="kt-menu__item ">
-                                    <h3 class="kt-menu__heading kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Staff Management</span><i class="kt-menu__ver-arrow la la-angle-right"></i></h3>
-                                    <ul class="kt-menu__inner">
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Top Management</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Project Managers</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Development Staff</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Customer Service</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Sales and Marketing</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Executives</span></a></li>
-                                    </ul>
-                                </li>
+                         <ul class="kt-menu__inner">
+                             @endif
+
+                             @endif
+
+                             @endif
+                             @endforeach
+
+                             @endif
 
                             </ul>
-                        </div>
-                    </div>
                 </li>
+
+    @else
+    @if($showMainlink->routeName!="user-priority-level")
+            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="{{url('/')}}/{{$showMainlink->routeName}}" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">{{$showMainlink->Link_Name}}</span><i class=""></i></a>
+
+             </li>
+
+            @endif
+            @endif
+            @endforeach
+            @endif
+
+    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="{{url('/')}}/user-priority-level" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">User Priority Level</span><i class=""></i></a>
+
+    </li>
+    @else
+    @if(count($mainlink) > 0)
+    @foreach($mainlink as $showMainlink)
+    @if($showMainlink->routeName == '#')
+
+                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">  {{$showMainlink->Link_Name}}</span><i class="{{$showMainlink->icon}}"></i></a>
+
+                        <div class="kt-menu__submenu  kt-menu__submenu--fixed kt-menu__submenu--left" style="width:1000px">
+                            <div class="kt-menu__subnav">
+                                <ul class="kt-menu__content">
+
+                                    <li class="kt-menu__item ">
+                                    @if(count($sublink) > 0)
+                                     @foreach($sublink as $showSubLink)
+                                        @if($showSubLink->mainmenuId == $showMainlink->id)
+
+                                            @if($showSubLink->routeName == '#')
+
+                                                @if(Controller::previousLabelExist($showSubLink)=="1")
+
+                        <ul class="kt-menu__inner">
+                            @else
+                                <ul class="kt-menu__inner">
+                                    @endif
+
+                                    <h3 class="kt-menu__heading kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">&nbsp;{{$showSubLink->submenuname}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></h3>
+                                 
+                                    @else
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>
+                                        @if(Controller::nextLabelExist($showSubLink)=="0")
+
+                                </ul>
+                                </li>
+                                <ul class="kt-menu__inner">
+                                    @endif
+
+                                    @endif
+
+                                    @endif
+                                    @endforeach
+
+                                    @endif
+
+                                </ul>
+
+
+</li>
+
+@else
+    @if($showMainlink->routeName!="user-priority-level")
+        <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="{{url('/')}}/{{$showMainlink->routeName}}" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">{{$showMainlink->Link_Name}}</span><i class="{{$showMainlink->icon}}"></i></a>
+
+        </li>
+        @endif
+        @endif
+        @endforeach
+        @endif
+
+        @endif
+
 
             </ul>
         </div>
@@ -579,7 +598,7 @@
                 <form>
 
                     <!--begin: Head -->
-                    <div class="kt-head kt-head--skin-dark kt-head--fit-x kt-head--fit-b" style="background-image: url(assets/media/misc/bg-1.jpg)">
+                    <div class="kt-head kt-head--skin-dark kt-head--fit-x kt-head--fit-b" style="background-image: url(public/assets/media/misc/bg-1.jpg)">
                         <h3 class="kt-head__title">
                             User Notifications
                             &nbsp;

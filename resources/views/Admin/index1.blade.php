@@ -110,6 +110,8 @@
                                 Dev
                                 <i class="fa fa-angle-down"></i>
                             </a>
+
+
                             <ul class="dropdown-menu">
                                 <li>
                                     <div class="mega-menu-content">
@@ -223,6 +225,13 @@
 
             @else
 
+
+
+
+
+
+
+
                 @if(count($mainlink) > 0)
                     @foreach($mainlink as $showMainlink)
                         @if($showMainlink->routeName == '#')
@@ -294,7 +303,9 @@
                 @endif
 
                 </ul>
+            </div>
     </div>
+</div>
     <!-- END MEGA MENU -->
     <!-- BEGIN HEADER SEARCH BOX -->
 <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box --
