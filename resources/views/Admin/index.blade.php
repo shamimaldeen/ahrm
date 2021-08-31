@@ -435,22 +435,17 @@
                     </li>
                 @endif
                     @if($id->id=="1000")
-
                         @if(count($Adminminlink) > 0)
                             @foreach($Adminminlink as $showMainlink)
                                 @if($showMainlink->routeName == '#')
 
+                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"  data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" > {{$showMainlink->Link_Name}}</span><i class="{{$showMainlink->icon}}"></i></a>
 
-
-                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"> {{$showMainlink->Link_Name}}</span><i class="{{$showMainlink->icon}}"></i></a>
-
-                    <div class="kt-menu__submenu  kt-menu__submenu--fixed kt-menu__submenu--left" style="width:1000px">
+                    <div class="kt-menu__submenu  kt-menu__submenu--fixed kt-menu__submenu--left" style="width:800px">
                         <div class="kt-menu__subnav">
                             <ul class="kt-menu__content">
-
-
-
                                 <li class="kt-menu__item ">
+                                    <div class="row">
 
                                     @if(count($adminsublink) > 0)
 
@@ -462,26 +457,20 @@
                                                     @if(Controller::previousLabelExist($showSubLink)=="1")
 
                             </ul>
-
-
-
-
-
                                     <ul class="kt-menu__inner">
-
                                         @else
                                             <ul class="kt-menu__inner">
+
                                                 @endif
-
                                                 <h3 class="kt-menu__heading kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">&nbsp;{{$showSubLink->submenuname}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></h3>
-
+                                                <hr style="margin: 10px;opacity: 1">
                                                 @else
                                         <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>
                                                     @if(Controller::nextLabelExist($showSubLink)=="0")
 
                                     </ul>
                                     </ul>
-                                </li>
+
                          <ul class="kt-menu__inner">
                              @endif
 
@@ -493,7 +482,7 @@
                              @endif
 
                             </ul>
-                </li>
+
 
     @else
     @if($showMainlink->routeName!="user-priority-level")
@@ -519,7 +508,7 @@
                         <div class="kt-menu__submenu  kt-menu__submenu--fixed kt-menu__submenu--left" style="width:1000px">
                             <div class="kt-menu__subnav">
                                 <ul class="kt-menu__content">
-
+                                    <div class="row">
                                     <li class="kt-menu__item ">
                                     @if(count($sublink) > 0)
                                      @foreach($sublink as $showSubLink)
@@ -528,14 +517,14 @@
                                             @if($showSubLink->routeName == '#')
 
                                                 @if(Controller::previousLabelExist($showSubLink)=="1")
-
+                                  </ul>
                         <ul class="kt-menu__inner">
                             @else
                                 <ul class="kt-menu__inner">
                                     @endif
 
                                     <h3 class="kt-menu__heading kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">&nbsp;{{$showSubLink->submenuname}}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></h3>
-                                 
+                                    <hr style="margin: 5px;opacity: .5">
                                     @else
                                         <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>
                                         @if(Controller::nextLabelExist($showSubLink)=="0")
