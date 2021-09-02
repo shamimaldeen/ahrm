@@ -465,27 +465,27 @@
                   @endif
 
 
-                    {{--<li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Apps</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>--}}
-                        {{--<div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">--}}
-                            {{--<ul class="kt-menu__subnav">--}}
-                                {{--<li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">--}}
-                                    {{--<a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">--}}
-															{{--</svg></span><span class="kt-menu__link-text">Social Presence</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>--}}
-                                    {{--<div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">--}}
-                                        {{--<ul class="kt-menu__subnav">--}}
-                                            {{--<li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Reached Users</span></a></li>--}}
-                                            {{--<li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">SEO Ranking</span></a></li>--}}
-                                            {{--<li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">User Dropout Points</span></a></li>--}}
-                                            {{--<li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Market Segments</span></a></li>--}}
-                                            {{--<li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Opportunity Growth</span></a></li>--}}
-                                        {{--</ul>--}}
-                                    {{--</div>--}}
-                                {{--</li>--}}
+                    <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Apps</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                        <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                            <ul class="kt-menu__subnav">
+                                <li class="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+															</svg></span><span class="kt-menu__link-text">Social Presence</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                    <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                        <ul class="kt-menu__subnav">
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Reached Users</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">SEO Ranking</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">User Dropout Points</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Market Segments</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="javascript:;" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Opportunity Growth</span></a></li>
+                                        </ul>
+                                    </div>
+                                </li>
 
 
-                            {{--</ul>--}}
-                        {{--</div>--}}
-                    {{--</li>--}}
+                            </ul>
+                        </div>
+                    </li>
 
                     {{--<li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Features</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>--}}
                         {{--<div class="kt-menu__submenu  kt-menu__submenu--fixed kt-menu__submenu--left" style="width:1000px">--}}
@@ -522,35 +522,27 @@
                                                                 @if($showSubLink->routeName == '#')
                                                                     @if(Controller::previousLabelExist($showSubLink)=="1")
                                             </ul>
-                                            <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                            {{--<div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">--}}
                                             <ul class="kt-menu__subnav">
                                                 @else
-
                                                     <ul class="kt-menu__subnav">
                                                         @endif
-                                                        <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
                                                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
 															</svg></span><span class="kt-menu__link-text">&nbsp;{{$showSubLink->submenuname}}</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
 
                                                         @else
-
-                                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>
+                                                            {{--<li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>--}}
                                                              @if(Controller::nextLabelExist($showSubLink)=="0")
-                                                        </div>
                                                     </ul>
-
                                             </ul>
-                                         </div>
+                                         {{--</div>--}}
                                             <ul class="kt-menu__subnav">
                                                 @endif
-
                                                 @endif
-
                                                 @endif
                                                 @endforeach
-
                                                 @endif
-                                                </ul>
+                                           </ul>
 
                                 @else
                                     @if($showMainlink->routeName!="user-priority-level")
@@ -578,24 +570,23 @@
 
                                                                 @if(Controller::previousLabelExist($showSubLink)=="1")
                                             </ul>
-                                            <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                            {{--<div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">--}}
                                             <ul class="kt-menu__subnav">
                                                 @else
-                                                    <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                                    {{--<div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">--}}
                                                     <ul class="kt-menu__subnav">
                                                         @endif
-                                                        <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+
                                                         <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
 															</svg></span><span class="kt-menu__link-text">&nbsp;{{$showSubLink->submenuname}}</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
 
                                                          @else
-                                                                <li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>
+                                                                {{--<li class="kt-menu__item " aria-haspopup="true"><a href="{{url('/')}}/{{$showSubLink->routeName}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{{$showSubLink->submenuname}}</span></a></li>--}}
                                                                 @if(Controller::nextLabelExist($showSubLink)=="0")
-                                                        </div>
                                                     </ul>
 
-                                                </ul>
-                                                </div>
+                                                {{--</div>--}}
+                                                </li>
 
 
                                                    <ul class="kt-menu__subnav">

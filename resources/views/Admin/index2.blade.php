@@ -533,7 +533,7 @@
                                         @if(Controller::nextLabelExist($showSubLink)=="0")
 
                                 </ul>
-                                </li>
+                        </ul>
                                 <ul class="kt-menu__inner">
                                     @endif
 
@@ -545,8 +545,6 @@
                                     @endif
 
                                 </ul>
-
-
 </li>
 
    @else

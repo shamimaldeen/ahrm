@@ -1,4 +1,4 @@
-@extends('Admin.index')
+@extends('Admin.index2')
 @section('body')
 
     @include('Admin.dashboard.header')
