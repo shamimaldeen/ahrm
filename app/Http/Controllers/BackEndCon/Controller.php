@@ -76,7 +76,7 @@ class Controller extends BaseController
 
     public function adminlink()
     {
-        return MainMenu::orderBy('serialNo', 'ASC')->get();
+        return MainMenu::orderBy('serialNo', 'ASC')->where('status', 1 )->get();
     }
 
     public function adminsublink()

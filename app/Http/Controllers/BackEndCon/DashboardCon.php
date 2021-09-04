@@ -92,9 +92,10 @@ class DashboardCon extends Controller
         $sublink = $this->adminsubmenu();
         $Adminminlink = $this->adminlink();
         $adminsublink = $this->adminsublink();
+       // $mainmenu=DB::table('adminmainmenu')->where('status', 1 )->orderBy('serialNo','asc')->get();
 
 
-        //dd($adminsublink);
+       // dd($mainlink);
 
 //probation employee list count
         if($id->suser_level=="1"){
@@ -271,7 +272,7 @@ class DashboardCon extends Controller
             ->whereDate('inactive_datetime', '>', Carbon::now()->subDays(30))
             ->count();
        // dd($recent_exited_employee);
-        return view('Admin.dashboard.index',compact('id','mainlink','sublink','Adminminlink','adminsublink','employee','holidayDate','holiday','notice','chart','notification', 'leave_notification', 'loan_notification', 'osd_notification','probations','total_remote_emp','total_office_emp','leaveapplication','osd_attendance','recent_jointed_employee','recent_exited_employee'));
+        return view('Admin.dashboard.index',compact('id','mainlink','sublink','Adminminlink','adminsublink','mainmenu','employee','holidayDate','holiday','notice','chart','notification', 'leave_notification', 'loan_notification', 'osd_notification','probations','total_remote_emp','total_office_emp','leaveapplication','osd_attendance','recent_jointed_employee','recent_exited_employee'));
     }
 
     public function getChartData(Request $request,$emp_depart_id,$chart_count,$chart_id)
