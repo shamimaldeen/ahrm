@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Aug 16, 2021 at 05:05 AM
--- Server version: 5.7.24
--- PHP Version: 7.2.19
+-- Host: 127.0.0.1
+-- Generation Time: Sep 07, 2021 at 11:19 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -34,7 +33,7 @@ CREATE TABLE `adminmainmenu` (
   `Link_Name` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `routeName` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `icon` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'icon-home',
-  `status` int(1) DEFAULT '1'
+  `status` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -49,8 +48,8 @@ INSERT INTO `adminmainmenu` (`id`, `serialNo`, `Link_Name`, `routeName`, `icon`,
 (49, 2, 'Attendance', '#', 'fa fa-bar-chart', 1),
 (50, 3, 'Leave', '#', 'fa fa-file-word-o', 1),
 (51, 4, 'Payments', '#', 'fa fa-money', 1),
-(52, 5, 'Performance', '#', 'fa fa-spinner', 1),
-(53, 6, 'Contractual', '#', 'fa fa-file-zip-o', 1);
+(52, 5, 'Performance', '#', 'fa fa-spinner', 0),
+(53, 6, 'Contractual', '#', 'fa fa-file-zip-o', 0);
 
 -- --------------------------------------------------------
 
@@ -64,7 +63,7 @@ CREATE TABLE `adminsubmenu` (
   `submenuname` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `serialno` int(20) DEFAULT NULL,
   `routeName` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` int(1) DEFAULT '1'
+  `status` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -88,7 +87,7 @@ INSERT INTO `adminsubmenu` (`id`, `mainmenuId`, `submenuname`, `serialno`, `rout
 (95, '48', 'Shift Wise Employee Summary', 8, 'shift-wise-employee-summary', 1),
 (96, '40', 'Leave Type', 7, 'leave-type-view', 1),
 (98, '40', 'Device Information', 8, 'device-info-view', 1),
-(99, '40', 'User Priority Level', 100, 'user-priority-level', 1),
+(99, '40', 'User Priority Level', 100, 'user-priority-level', 0),
 (100, '48', 'View System User', 6, 'view-system-user', 1),
 (101, '49', 'Attendance', 1, 'attendance', 1),
 (102, '49', 'Remote Attendance', 2, 'remote-attendance', 1),
@@ -96,8 +95,8 @@ INSERT INTO `adminsubmenu` (`id`, `mainmenuId`, `submenuname`, `serialno`, `rout
 (104, '40', 'Notice Board', 9, 'notice-board-view', 1),
 (105, '42', 'View Report', 1, 'report', 1),
 (106, '40', 'Holiday', 10, 'holiday-view', 1),
-(107, '43', 'Add New Ticket', 1, 'add-new-ticket', 1),
-(108, '43', 'All Tickets', 2, 'all-tickets', 1),
+(107, '43', 'Add New Ticket', 1, 'add-new-ticket', 0),
+(108, '43', 'All Tickets', 2, 'all-tickets', 0),
 (109, '48', 'Password Request', 3, 'pending-forget-password-request', 1),
 (110, '50', 'Pending Application', 3, 'pending-leave-application', 1),
 (111, '48', 'My Team', 2, 'my-team', 1),
@@ -127,8 +126,8 @@ INSERT INTO `adminsubmenu` (`id`, `mainmenuId`, `submenuname`, `serialno`, `rout
 (136, '49', 'Attendance', 0, '#', 1),
 (137, '50', 'Leave', 0, '#', 1),
 (138, '51', 'Payroll', 0, '#', 1),
-(139, '43', 'Ticket', 0, '#', 1),
-(140, '52', 'Performance', 0, '#', 1),
+(139, '43', 'Ticket', 0, '#', 0),
+(140, '52', 'Performance', 0, '#', 0),
 (141, '42', 'Report', 0, '#', 1),
 (142, '40', 'Basic Informations', 0, '#', 1),
 (143, '48', 'Recruitment', 10, '#', 1),
@@ -142,7 +141,7 @@ INSERT INTO `adminsubmenu` (`id`, `mainmenuId`, `submenuname`, `serialno`, `rout
 (151, '40', 'Payroll Setup', 25, '#', 1),
 (152, '40', 'Settings', 30, '#', 1),
 (153, '40', 'Attendance Setup', 5, '#', 1),
-(154, '53', 'Contactual Works', 0, '#', 1),
+(154, '53', 'Contactual Works', 0, '#', 0),
 (155, '53', 'Settings', 5, '#', 1),
 (156, '53', 'Create a Job', 1, 'production/create', 1),
 (157, '53', 'Pay', 2, 'production/payment/list', 1),
@@ -209,12 +208,12 @@ CREATE TABLE `product_category` (
 
 CREATE TABLE `r_applications` (
   `id` int(8) NOT NULL,
-  `intro` text COLLATE utf8_unicode_ci,
+  `intro` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `jobseeker_id` int(8) DEFAULT NULL,
   `job_id` int(8) DEFAULT NULL,
-  `feedback` text COLLATE utf8_unicode_ci,
-  `status` int(1) DEFAULT '0' COMMENT '0 for pending, 1 for accepted, 2 for rejected',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `feedback` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` int(1) DEFAULT 0 COMMENT '0 for pending, 1 for accepted, 2 for rejected',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -227,15 +226,15 @@ CREATE TABLE `r_applications` (
 CREATE TABLE `r_jobs` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `skills` text COLLATE utf8_unicode_ci,
-  `description` text COLLATE utf8_unicode_ci,
-  `who_apply` text COLLATE utf8_unicode_ci,
-  `offer` text COLLATE utf8_unicode_ci,
+  `skills` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `who_apply` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `offer` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `salary` int(11) DEFAULT NULL,
-  `experience` int(11) NOT NULL DEFAULT '0',
+  `experience` int(11) NOT NULL DEFAULT 0,
   `closing_date` date DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `inactive` tinyint(1) NOT NULL DEFAULT '0',
+  `inactive` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -259,13 +258,13 @@ CREATE TABLE `r_jobseeker` (
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `sex` int(1) DEFAULT '1' COMMENT '1 for male, 0 for female',
-  `skills` text COLLATE utf8_unicode_ci,
-  `study` text COLLATE utf8_unicode_ci,
+  `sex` int(1) DEFAULT 1 COMMENT '1 for male, 0 for female',
+  `skills` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `study` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `salary` double DEFAULT NULL,
-  `experience` text COLLATE utf8_unicode_ci,
+  `experience` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `resume` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -287,7 +286,7 @@ CREATE TABLE `tbl_appmodule` (
   `appm_menuid` int(8) DEFAULT NULL,
   `appm_submenuid` int(8) DEFAULT NULL,
   `appm_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `appm_status` int(8) DEFAULT '1'
+  `appm_status` int(8) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -417,72 +416,65 @@ INSERT INTO `tbl_appmodulepriority` (`amp_id`, `amp_prid`, `amp_appmid`) VALUES
 (1708, 4, 57),
 (1709, 4, 58),
 (1710, 4, 59),
-(3987, 5, 1),
-(3988, 5, 41),
-(3989, 5, 43),
-(3990, 5, 44),
-(3991, 5, 46),
-(3992, 5, 88),
-(3993, 5, 8),
-(3994, 5, 56),
-(3995, 5, 59),
-(4108, 1, 1),
-(4109, 1, 3),
-(4110, 1, 41),
-(4111, 1, 43),
-(4112, 1, 44),
-(4113, 1, 94),
-(4114, 1, 36),
-(4115, 1, 37),
-(4116, 1, 39),
-(4117, 1, 40),
-(4118, 1, 45),
-(4119, 1, 38),
-(4120, 1, 42),
-(4121, 1, 46),
-(4122, 1, 48),
-(4123, 1, 88),
-(4124, 1, 89),
-(4125, 1, 90),
-(4126, 1, 4),
-(4127, 1, 5),
-(4128, 1, 81),
-(4129, 1, 82),
-(4130, 1, 83),
-(4131, 1, 84),
-(4132, 1, 85),
-(4133, 1, 86),
-(4134, 1, 92),
-(4135, 1, 8),
-(4136, 1, 56),
-(4137, 1, 57),
-(4138, 1, 58),
-(4139, 1, 59),
-(4140, 1, 14),
-(4141, 1, 15),
-(4142, 1, 16),
-(4143, 1, 17),
-(4144, 1, 18),
-(4145, 1, 19),
-(4146, 1, 20),
-(4147, 1, 21),
-(4148, 1, 22),
-(4149, 1, 23),
-(4150, 1, 24),
-(4151, 1, 25),
-(4152, 1, 11),
-(4153, 1, 12),
-(4154, 1, 13),
-(4155, 1, 26),
-(4156, 1, 27),
-(4157, 1, 28),
-(4158, 1, 29),
-(4159, 1, 30),
-(4160, 1, 31),
-(4161, 1, 53),
-(4162, 1, 54),
-(4163, 1, 55),
-(4164, 1, 97);
+(4381, 5, 1),
+(4382, 5, 41),
+(4383, 5, 43),
+(4384, 5, 44),
+(4385, 5, 46),
+(4386, 5, 88),
+(4387, 1, 1),
+(4388, 1, 3),
+(4389, 1, 41),
+(4390, 1, 43),
+(4391, 1, 44),
+(4392, 1, 94),
+(4393, 1, 36),
+(4394, 1, 37),
+(4395, 1, 39),
+(4396, 1, 40),
+(4397, 1, 45),
+(4398, 1, 38),
+(4399, 1, 42),
+(4400, 1, 46),
+(4401, 1, 48),
+(4402, 1, 88),
+(4403, 1, 89),
+(4404, 1, 90),
+(4405, 1, 4),
+(4406, 1, 5),
+(4407, 1, 81),
+(4408, 1, 82),
+(4409, 1, 83),
+(4410, 1, 84),
+(4411, 1, 85),
+(4412, 1, 86),
+(4413, 1, 92),
+(4414, 1, 73),
+(4415, 1, 14),
+(4416, 1, 15),
+(4417, 1, 16),
+(4418, 1, 17),
+(4419, 1, 18),
+(4420, 1, 19),
+(4421, 1, 20),
+(4422, 1, 21),
+(4423, 1, 22),
+(4424, 1, 23),
+(4425, 1, 24),
+(4426, 1, 25),
+(4427, 1, 11),
+(4428, 1, 12),
+(4429, 1, 13),
+(4430, 1, 26),
+(4431, 1, 27),
+(4432, 1, 28),
+(4433, 1, 29),
+(4434, 1, 30),
+(4435, 1, 31),
+(4436, 1, 53),
+(4437, 1, 54),
+(4438, 1, 55),
+(4439, 1, 97);
 
 -- --------------------------------------------------------
 
@@ -27888,7 +27880,7 @@ CREATE TABLE `tbl_clock` (
   `clock_empid` int(8) DEFAULT NULL,
   `clock_time` datetime DEFAULT NULL,
   `clock_device` int(1) DEFAULT NULL,
-  `clock_status` int(1) DEFAULT '0' COMMENT '0 for pending , 1 for confirmed'
+  `clock_status` int(1) DEFAULT 0 COMMENT '0 for pending , 1 for confirmed'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -27908,10 +27900,10 @@ CREATE TABLE `tbl_contractualpayroll` (
   `tax` double DEFAULT NULL,
   `original_tax` double DEFAULT NULL,
   `provident_fund` double DEFAULT NULL,
-  `type` int(2) NOT NULL DEFAULT '30',
+  `type` int(2) NOT NULL DEFAULT 30,
   `generated_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `updated_count` double DEFAULT '0',
+  `updated_count` double DEFAULT 0,
   `generated_by` int(8) DEFAULT NULL,
   `updated_by` int(8) DEFAULT NULL,
   `basic` double DEFAULT NULL,
@@ -27927,7 +27919,7 @@ CREATE TABLE `tbl_contractualpayroll` (
   `net_pay` double DEFAULT NULL,
   `prev_cal` double DEFAULT NULL,
   `net_pay_with_prev` double DEFAULT NULL,
-  `remarks` text COLLATE utf8_unicode_ci
+  `remarks` text COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -28612,7 +28604,9 @@ INSERT INTO `tbl_dailyshift` (`ds_id`, `ds_empid`, `ds_shiftid`, `ds_date`, `ds_
 (387, 2031, 2, '2018-01-01', '2021-05-30 11:23:58', 1963),
 (388, 2032, 2, '2018-01-01', '2021-05-30 11:41:46', 1963),
 (389, 2033, 2, '2018-01-01', '2021-06-03 15:54:01', 116),
-(390, 2034, 2, '2018-01-01', '2021-06-05 10:05:07', 116);
+(390, 2034, 2, '2018-01-01', '2021-06-05 10:05:07', 116),
+(391, 2031, 2, '2018-01-01', '2021-08-24 12:21:28', 116),
+(392, 2032, 2, '2018-01-01', '2021-08-24 12:23:37', 116);
 
 -- --------------------------------------------------------
 
@@ -28623,7 +28617,7 @@ INSERT INTO `tbl_dailyshift` (`ds_id`, `ds_empid`, `ds_shiftid`, `ds_date`, `ds_
 CREATE TABLE `tbl_department` (
   `depart_id` int(8) NOT NULL,
   `depart_name` varchar(255) NOT NULL,
-  `depart_status` int(1) NOT NULL DEFAULT '1'
+  `depart_status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -28651,7 +28645,7 @@ CREATE TABLE `tbl_designation` (
   `desig_id` int(8) NOT NULL,
   `desig_name` varchar(255) NOT NULL,
   `desig_specification` varchar(255) DEFAULT NULL,
-  `desig_status` int(1) NOT NULL DEFAULT '1'
+  `desig_status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -28695,7 +28689,7 @@ INSERT INTO `tbl_designation` (`desig_id`, `desig_name`, `desig_specification`, 
 CREATE TABLE `tbl_device` (
   `id` int(8) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `type` int(1) DEFAULT '1'
+  `type` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -28721,10 +28715,10 @@ INSERT INTO `tbl_device` (`id`, `name`, `type`) VALUES
 CREATE TABLE `tbl_documents` (
   `id` int(11) NOT NULL,
   `emp_id` int(8) DEFAULT NULL,
-  `title` text COLLATE utf8_unicode_ci,
-  `description` text COLLATE utf8_unicode_ci,
+  `title` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `file` text COLLATE utf8_unicode_ci,
+  `file` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `uploaded_by` int(8) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -28761,15 +28755,15 @@ INSERT INTO `tbl_documents` (`id`, `emp_id`, `title`, `description`, `name`, `fi
 
 CREATE TABLE `tbl_educations` (
   `emp_id` int(11) NOT NULL,
-  `level_of_education` text COLLATE utf8_unicode_ci,
-  `exam_title` text COLLATE utf8_unicode_ci,
-  `group` text COLLATE utf8_unicode_ci,
-  `institute` text COLLATE utf8_unicode_ci,
-  `result` text COLLATE utf8_unicode_ci,
-  `cgpa` text COLLATE utf8_unicode_ci,
-  `scale` text COLLATE utf8_unicode_ci,
-  `year` text COLLATE utf8_unicode_ci,
-  `duration` text COLLATE utf8_unicode_ci,
+  `level_of_education` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `exam_title` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `group` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `institute` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `result` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cgpa` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `scale` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `year` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `duration` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -29143,7 +29137,7 @@ INSERT INTO `tbl_educations` (`emp_id`, `level_of_education`, `exam_title`, `gro
 CREATE TABLE `tbl_emphistory` (
   `eh_id` int(8) NOT NULL,
   `eh_empid` int(8) DEFAULT NULL,
-  `eh_log` text COLLATE utf8_unicode_ci,
+  `eh_log` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `eh_operator` int(8) DEFAULT NULL,
   `eh_datetime` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -34973,7 +34967,31 @@ INSERT INTO `tbl_emphistory` (`eh_id`, `eh_empid`, `eh_log`, `eh_operator`, `eh_
 (5808, 1989, '<strong>Date of Birth</strong> has been changed from : <strong>09/12/1979</strong> to : <strong></strong><br><strong>joinning Date</strong> has been changed from : <strong>27/08/2017</strong> to : <strong></strong><br><strong>Confirmation Date</strong> has been changed from : <strong>28/02/2018</strong> to : <strong></strong><br>', 116, '2021-06-08 17:02:18'),
 (5809, 1997, '<strong>Date of Birth</strong> has been changed from : <strong>05/11/1989</strong> to : <strong></strong><br><strong>joinning Date</strong> has been changed from : <strong>23/07/2017</strong> to : <strong></strong><br><strong>Confirmation Date</strong> has been changed from : <strong>24/01/2018</strong> to : <strong></strong><br>', 116, '2021-06-08 17:06:52'),
 (5810, 1999, 'You Have submitted a <b>Annual Leave-Regular</b> application To <b>Sarwar (PFISL-004)</b> which is followed by- <br>Leave Start Date : <b>2021-06-10</b><br>Leave End Date : <b>2021-06-12</b><br>Leave Duration : <b>3</b> Day(s)<br>Leave Reason : <b>demo</b>', 1999, '2021-06-09 11:58:00'),
-(5811, 1999, 'A Annual Leave-Regular application has been Approved which was submitted To <b>Sarwar (PFISL-004)</b> which is followed by- <br>Leave Start Date : <b>2021-06-10 00:00:00</b><br>Leave End Date : <b>2021-06-12 00:00:00</b><br>Leave Duration : <b>3</b> Day(s)<br>Leave Reason : <b>demo</b>', 116, '2021-06-09 11:58:42');
+(5811, 1999, 'A Annual Leave-Regular application has been Approved which was submitted To <b>Sarwar (PFISL-004)</b> which is followed by- <br>Leave Start Date : <b>2021-06-10 00:00:00</b><br>Leave End Date : <b>2021-06-12 00:00:00</b><br>Leave Duration : <b>3</b> Day(s)<br>Leave Reason : <b>demo</b>', 116, '2021-06-09 11:58:42'),
+(5812, 1974, 'System User Has Been Changed To Remote Attendant', 116, '2021-08-24 10:37:23'),
+(5813, 1964, 'System User Has Been Changed To Remote Attendant', 116, '2021-08-24 11:12:38'),
+(5814, 1964, 'You Have submitted a <b>Annual Leave-Regular</b> application To <b>Sarwar (PFISL-004)</b> which is followed by- <br>Leave Start Date : <b>2021-08-24</b><br>Leave End Date : <b>2021-08-25</b><br>Leave Duration : <b>2</b> Day(s)<br>Leave Reason : <b>sick</b>', 1964, '2021-08-24 11:19:18'),
+(5815, 2017, 'OSD Attendance Request has been Approved which is followed by- <br>OSD Date : <b>2021-04-15</b><br>OSD Start Time : <b>09:00:00</b><br>OSD End Time : <b>10:00:00</b><br>OSD Duration : <b>01:00:00</b><br>Location : <b>Rampura</b><br>Description : <b>Support</b>', 116, '2021-08-24 12:13:24'),
+(5816, 2031, 'Employee Information Created', 116, '2021-08-24 12:21:28'),
+(5817, 2031, 'Employee Image Uploaded', 116, '2021-08-24 12:21:28'),
+(5818, 2031, 'System User Account Has Been Created', 116, '2021-08-24 12:21:28'),
+(5819, 2031, 'Shift Created To : <b>9:00 am - 5:00 pm</b>', 116, '2021-08-24 12:21:28'),
+(5820, 2032, 'Employee Information Created', 116, '2021-08-24 12:23:37'),
+(5821, 2032, 'Employee Image Uploaded', 116, '2021-08-24 12:23:37'),
+(5822, 2032, 'System User Account Has Been Created', 116, '2021-08-24 12:23:37'),
+(5823, 2032, 'Shift Created To : <b>9:00 am - 5:00 pm</b>', 116, '2021-08-24 12:23:37'),
+(5824, 2032, 'Employee Has Been Resigned at 2021-08-24 15:03:21', 116, '2021-08-24 15:03:21'),
+(5825, 1964, 'Employee Has Been Suspended at 2021-08-24 15:09:53', 116, '2021-08-24 15:09:53'),
+(5826, 1965, 'Employee Has Been Resigned at 2021-08-24', 116, '2021-08-24 15:46:29'),
+(5827, 1967, 'Employee Has Been Suspended at 2021-08-24 16:02:56', 116, '2021-08-24 16:02:56'),
+(5828, 1968, 'Employee Has Been Resigned at 2021-08-24', 116, '2021-08-24 16:09:51'),
+(5829, 1969, 'Employee Has Been Resigned at 2021-08-24', 116, '2021-08-24 16:18:01'),
+(5830, 1970, 'Employee Has Been Resigned at 2021-08-24', 116, '2021-08-24 16:21:26'),
+(5831, 1971, 'Employee Has Been Suspended at 2021-08-24 16:24:17', 116, '2021-08-24 16:24:17'),
+(5832, 1972, 'Employee Has Been Resigned at 2021-08-24', 116, '2021-08-24 16:29:29'),
+(5833, 1958, 'System User Has Been Changed To Remote Attendant', 116, '2021-08-26 10:43:40'),
+(5834, 1994, 'System User Has Been Changed To Remote Attendant', 116, '2021-08-30 15:46:05'),
+(5835, 1956, 'Password has been changed to default : 002', 116, '2021-09-06 12:29:47');
 
 -- --------------------------------------------------------
 
@@ -34996,7 +35014,7 @@ CREATE TABLE `tbl_employee` (
   `emp_seniorid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `emp_authperson` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `emp_blgrp` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `emp_education` text CHARACTER SET latin1,
+  `emp_education` text CHARACTER SET latin1 DEFAULT NULL,
   `emp_wknd` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `emp_vehicle` varchar(255) COLLATE utf8_unicode_ci DEFAULT '1',
   `emp_workhr` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '1 for 7hr working, 2 for 8 hr working, 3 for 6 hours working',
@@ -35008,27 +35026,28 @@ CREATE TABLE `tbl_employee` (
   `emp_joindate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `emp_confirmdate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `emp_workhistoryfrom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `emp_father` text COLLATE utf8_unicode_ci,
-  `emp_mother` text COLLATE utf8_unicode_ci,
+  `emp_father` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `emp_mother` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `emp_spname` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `spouse_phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `emp_child1` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `emp_child2` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `emp_emjcontact` varchar(15) CHARACTER SET latin1 DEFAULT NULL,
-  `emp_crntaddress` text CHARACTER SET latin1,
-  `emp_prmntaddress` text CHARACTER SET latin1,
+  `emp_crntaddress` text CHARACTER SET latin1 DEFAULT NULL,
+  `emp_prmntaddress` text CHARACTER SET latin1 DEFAULT NULL,
   `emp_imgext` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `emp_officecontact` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `emp_handsetallocdate` date DEFAULT NULL,
   `emp_allocamount` int(255) DEFAULT NULL,
   `emp_machineid` int(8) DEFAULT NULL,
   `emp_nid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pf` int(1) NOT NULL DEFAULT '0',
-  `washing` int(1) NOT NULL DEFAULT '0',
-  `lfa` int(1) NOT NULL DEFAULT '0',
-  `tax_allow` int(1) NOT NULL DEFAULT '1',
-  `emp_status` int(1) DEFAULT '1',
-  `status_condition` int(1) NOT NULL DEFAULT '0' COMMENT '1=resign|2=suspend|3=reject',
+  `pf` int(1) NOT NULL DEFAULT 0,
+  `washing` int(1) NOT NULL DEFAULT 0,
+  `lfa` int(1) NOT NULL DEFAULT 0,
+  `tax_allow` int(1) NOT NULL DEFAULT 1,
+  `emp_status` int(1) DEFAULT 1,
+  `status_condition` int(1) NOT NULL DEFAULT 0 COMMENT '1=resign|2=suspend|3=reject',
+  `inactive_datetime` datetime DEFAULT NULL,
   `emp_created_at` datetime DEFAULT NULL,
   `emp_updated_at` datetime DEFAULT NULL,
   `emp_rejected_at` datetime DEFAULT NULL,
@@ -35040,84 +35059,86 @@ CREATE TABLE `tbl_employee` (
 -- Dumping data for table `tbl_employee`
 --
 
-INSERT INTO `tbl_employee` (`emp_id`, `emp_empid`, `emp_name`, `emp_type`, `emp_phone`, `emp_sfid`, `emp_dob`, `emp_country`, `emp_desig_id`, `emp_depart_id`, `emp_sdepart_id`, `emp_seniorid`, `emp_authperson`, `emp_blgrp`, `emp_education`, `emp_wknd`, `emp_vehicle`, `emp_workhr`, `emp_otent`, `emp_shiftid`, `emp_email`, `emp_cicoid`, `emp_jlid`, `emp_joindate`, `emp_confirmdate`, `emp_workhistoryfrom`, `emp_father`, `emp_mother`, `emp_spname`, `spouse_phone`, `emp_child1`, `emp_child2`, `emp_emjcontact`, `emp_crntaddress`, `emp_prmntaddress`, `emp_imgext`, `emp_officecontact`, `emp_handsetallocdate`, `emp_allocamount`, `emp_machineid`, `emp_nid`, `pf`, `washing`, `lfa`, `tax_allow`, `emp_status`, `status_condition`, `emp_created_at`, `emp_updated_at`, `emp_rejected_at`, `min_salary`, `target_percent`) VALUES
-(116, 'Atech-1001', 'Atech HRM User', '9', '01734222391', '123', '1998-01-03', '18', '1', '1', '1', '1963', '1963', 'A+', 'Msc In Engineering', '1', '1', '2', '1', '1', 'sales@acquaintbd.com', NULL, '1', '2018-02-18', '2018-08-18', NULL, NULL, NULL, 'Saymoon Akter', NULL, '', '', '01754148869', 'Dhaka', 'Dhaka', 'png', NULL, NULL, NULL, 1111111, '19983012960000', 1, 0, 0, 1, 0, 0, '2018-04-17 05:37:03', '2020-09-20 02:38:57', NULL, NULL, NULL),
-(1955, 'PFISL-001', 'Kazi Fariduddin Ahmed', '9', '0199911993', '123', '1976-05-04', '18', '101', '7', '14', '1955', '1955', 'A+', 'HSC', '1', '1', '2', '2', '2', 'test@test.com', NULL, '2', '2020-03-02', '2020-09-02', NULL, 'Jack', 'alexandra', '', '32436534', NULL, NULL, '489357485', 'Motijheel Dhaka', 'Gulistan Dhaka', NULL, '4747857834', '2021-05-20', 1000, 1, '092734i353435', 1, 0, 1, 1, 1, 0, NULL, '2021-06-20 04:33:42', NULL, '20000', '205'),
-(1956, 'PFISL-002', 'Md. Musfiqur Rahman', '8', NULL, 'DMD & CS', NULL, '18', '102', '7', '14', '1955', '1955', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 33, NULL, 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 03:48:20', NULL, NULL, NULL),
-(1957, 'PFISL-003', 'Muhammad Kaochhar Molla', '11', NULL, 'VP', NULL, '18', '103', '17', '0', '1956', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-04-24 05:00:30', NULL, NULL, NULL),
-(1958, 'PFISL-004', 'Sarwar', '12', '0171112483', 'SAVP', '1982-02-01', '18', '104', '1', '1', '1956', '1956', 'A+', 'AAAAAA', '1', '0', '2', '2', '2', 's_alayet@yahoo.com', NULL, '2', '2020-10-01', '2021-04-01', NULL, 'Samsul Haque Fakir', 'Amiran Nessa', '', 'AAAAAA', NULL, NULL, '0171112483', '73/H/F (3rd Floor), Central Road, Dhanmondi, Dhaka', '73/H/F (3rd Floor), Central Road, Dhanmondi, Dhaka', 'jpg', NULL, NULL, NULL, 393, 'AAAAAA', 1, 0, 0, 1, 1, 0, NULL, '2021-06-02 05:03:10', NULL, NULL, NULL),
-(1959, 'PFISL-005', 'Nuruzzaman', '12', '01712136889', 'AVP', '1979-10-15', '18', '105', '18', '24', '1958', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', 'md.nuruzzaman79@gmail.com', NULL, '2', '2020-10-01', '2021-04-01', NULL, 'Late Afsar Ali', 'Monowara Begum', '', NULL, NULL, NULL, '01712136889', '16/2/C (4th Floor), Commissioner Road, Kallayanpur, Dhaka-1207', '6/2/C (4th Floor), Commissioner Road, Kallayanpur, Dhaka-1207', 'jpg', NULL, NULL, NULL, 94, '2694811028394', 1, 0, 0, 1, 1, 0, NULL, '2021-06-03 05:55:40', NULL, NULL, NULL),
-(1960, 'PFISL-006', 'Chanchal Kumar Saha', '12', '01912222791', 'AVP', '1981-04-16', '18', '105', '18', '24', '1958', '1956', NULL, 'M.Com. (Management)', NULL, NULL, '2', '2', '2', 'ck_saha07@yahoo.com', NULL, '2', '2020-01-01', '2020-07-01', NULL, 'Shawpan Kumar Saha', 'Asa Rani Saha', '', NULL, NULL, NULL, '01912222791', '78/79, H3, Central Road, Dhanmondi, Dhaka-1205', '8/79, H3, Central Road, Dhanmondi, Dhaka-1205', 'jpg', NULL, NULL, NULL, 291, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-05-24 03:25:42', NULL, NULL, NULL),
-(1961, 'PFISL-007', 'Nuruzzaman', '12', NULL, 'AVP', NULL, '18', '105', '18', '24', '1958', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '3', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 447, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-06-03 05:42:02', NULL, NULL, NULL),
-(1962, 'PFISL-008', 'Hasanuzzaman', '8', '1531307900', 'Sr. Manager', NULL, '18', '106', '19', '24', '1956', '1956', 'B Positive', NULL, NULL, NULL, '2', '2', '2', 'pfimcd@gmail.com', NULL, '2', NULL, NULL, NULL, 'Late M.A. Rouf', 'Hasina Begum', 'Miratious Siddika Mousumi', NULL, NULL, NULL, '1531307900', '143 East Rampura (3rd Floor), Dhaka-1219', '143 East Rampura (3rd Floor), Dhaka-1219', 'jpg', NULL, NULL, 1500, 91, '736656564091', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 04:47:17', NULL, NULL, NULL),
-(1963, 'PFISL-009', 'Mohammad Moazzem Mamun Khan', '8', '017111429847', 'Manager', NULL, '18', '107', '14', '21', '1956', '1956', 'A+', 'M.Sc. (Physics)', NULL, '0', '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, 'Md. Sohrab Uddin Khan', 'Nurun Nahar Begum', '', NULL, NULL, NULL, NULL, 'H # 02, R # 02, B # A, Muktipalli, Shahjadpur, Badda, Dhaka', 'H # 02, R # 02, B # A, Muktipalli, Shahjadpur, Badda, Dhaka', 'jpg', '01755542347', '2009-01-01', 1500, 320, '2610457046250', 1, 0, 1, 1, 1, 0, NULL, '2021-06-07 04:04:16', NULL, NULL, NULL),
-(1964, 'PFISL-010', 'Md. Rizoyanul Islam', '8', '01911038907', 'Manager', '06/11/1981', '18', '107', '20', '24', '1958', '1956', 'O Positive', 'MBA', NULL, '0', '2', '2', '2', 'rizlam308@gmail.com', NULL, '8', '25/06/2007', '25/12/2007', NULL, 'Md. Nurul Islam', 'Rokeya Islam', 'Sabina Akter', NULL, NULL, NULL, '1750373766', 'Road # 15, House #15, Sec # 10, Uttara, Dhaka', 'Road # 15, House #15, Sec # 10, Uttara, Dhaka', 'jpg', '01755542349', NULL, 1500, 6, NULL, 1, 0, 1, 1, 1, 0, NULL, '2021-06-03 05:35:39', NULL, NULL, NULL),
-(1965, 'PFISL-011', 'Khandker Rehana Akter', '8', '1854311017', 'Manager', '1978-12-02', '18', '107', '20', '24', '1958', '1956', 'O Positive', 'MSc', NULL, NULL, '2', '2', '2', 'bakila2007@gmail.com', NULL, '2', '2007-10-01', '2008-04-01', NULL, 'Late Khandker Ahmed Ullah', 'Nurjahan Begum', 'Md. Mojibur Rahman', NULL, NULL, NULL, '1911095831', '1483/A, 2nd Floor), Khilgoan, Dhaka-1219', '1483/A, 2nd Floor), Khilgoan, Dhaka-1219', 'jpg', NULL, NULL, NULL, 8, '3283311649', 1, 0, 1, 1, 1, 0, NULL, '2021-05-25 12:24:39', NULL, NULL, NULL),
-(1966, 'PFISL-012', 'Mohammad Saiful Azam', '8', '01717819336', 'Manager', NULL, '18', '107', '7', '14', '1956', '1956', 'A Positive', 'MCom', NULL, NULL, '2', '2', '2', 'azampfisl@gmail.com', NULL, '2', NULL, NULL, NULL, 'Late Md. Siddiqur Rahman', 'Late Monoara Begum', 'Marin Tangina Ahmed', NULL, NULL, NULL, '1819135269', '1044/3 \"Parveen View\" (1st Floor), Malibagh Chowdhuri Para, Dhaka', '1044/3 \"Parveen View\" (1st Floor), Malibagh Chowdhuri Para, Dhaka', 'jpg', '01755542354', NULL, 1500, 13, '2826009736', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 04:50:21', NULL, NULL, NULL),
-(1967, 'PFISL-013', 'Tareq Mohammad Muinul Hossain', '8', '01722840180', 'Manager', '1983-11-04', '18', '107', '20', '24', '1958', '1956', 'AB Positive', 'MBA, Finance & Banking', NULL, NULL, '2', '2', '2', 'tareqmuin@gmail.com', NULL, '4', '2009-08-02', '2010-02-02', NULL, 'Ahmad Hossain', 'Khaleda Khanam', 'Bibi Amena', NULL, NULL, NULL, '1817710763', 'Chemon Nibash, 2012, Karnaphuli R/A, Ek-Kilometer, Chandgaon, Chittagong', 'Chemon Nibash, 2012, Karnaphuli R/A, Ek-Kilometer, Chandgaon, Chittagong', 'jpg', '01755542359', NULL, 1500, 25, '1592830677876', 1, 0, 1, 1, 1, 0, NULL, '2021-05-31 03:12:01', NULL, NULL, NULL),
-(1968, 'PFISL-014', 'Shamim Akter', '8', '01716278742', 'Asst. Manager', NULL, '18', '108', '20', '24', '1958', '1956', NULL, 'M.Com. (Accounting)', NULL, '0', '2', '2', '2', 'shamim5467@yahoo.comn', NULL, '5', NULL, '2009-02-06', NULL, 'Late Alhaj Afzal Hossain', 'Mrs. Nurjahan Begum', '', NULL, NULL, NULL, '01712675421', '2/2/7, Tolarbagh, Mirpur-01, Dhaka', 'Vill: Bilsolongi, Po: Bilsolongi, Ps: Shanthia, Dist: Pabna', 'jpg', '01755542353', NULL, 1500, 12, '3255601084', 1, 0, 1, 1, 1, 0, NULL, '2021-06-06 05:02:51', NULL, NULL, NULL),
-(1969, 'PFISL-015', 'Akteruzzaman', '8', '01721036527', 'Asst. Manager', '1981-09-11', '18', '108', '20', '24', '1958', '1956', NULL, 'M.Sc. (Mathematics)', NULL, NULL, '2', '2', '2', NULL, NULL, '6', '2009-04-15', '2009-10-15', NULL, 'Asraf Ali Ahmed', 'Ayesha Siddika', '', NULL, NULL, NULL, '01721036527', 'Vill: Barafala, Po: Nazirpur, Ps: Badalgachi, Dist: Rajshahi', 'Vill: Barafala, Po: Nazirpur, Ps: Badalgachi, Dist: Rajshahi', 'jpg', '01755542360', NULL, 1500, 19, NULL, 1, 0, 1, 1, 1, 0, NULL, '2021-05-31 02:13:13', NULL, NULL, NULL),
-(1970, 'PFISL-016', 'Md. Mozammel Hossain', '8', '1755-542367', 'Asst. Manager', '1977-02-20', '18', '108', '20', '24', '1958', '1956', 'B Positive', 'MBA, (Marketing)', NULL, NULL, '2', '2', '2', 'mbamh123@gmail.com', NULL, '2', '2009-08-26', '2010-02-26', NULL, 'Md. Shamsul Huda', 'Mst. Masuma Khatun', 'Mst. Navana', NULL, NULL, NULL, '01716-311455', '316/12/4, South Goran, Dhaka-1219', '316/12/4, South Goran, Dhaka-1219', 'jpg', '1755-542367', NULL, 1500, 28, '8192221352589', 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 04:10:06', NULL, NULL, NULL),
-(1971, 'PFISL-017', 'Sheikh Md Asaduzzaman', '8', '01913100148', 'Asst Manager', '01/03/1980', '18', '109', '20', '24', '1978', '1956', 'O Positive', 'M.Com.', NULL, '0', '2', '2', '2', 'asad101sk@gmail.com', NULL, '7', '01/09/2009', '2009-07-09', NULL, 'Md Mosharrof Hossain', 'Momena Hossain', 'Sumi Hyder ', NULL, NULL, NULL, '01716616830', 'C/43, R#8, Section#7, Arambag, Rupnagar, Mirpur-1200', 'C/43, R#8, Section#7, Arambag, Rupnagar, Mirpur-1200', 'jpg', '01755542368', NULL, 1500, 29, '6860581385', 1, 0, 1, 1, 1, 0, NULL, '2021-06-07 03:57:17', NULL, NULL, NULL),
-(1972, 'PFISL-018', 'Md. Mofazzal Hossain', '8', '1712419630', 'Asst. Manager', NULL, '18', '108', '20', '24', '1958', '1956', 'O Positive', NULL, NULL, NULL, '2', '2', '2', 'mmoffazzal@gmail.com', NULL, '2', '2010-05-13', '2010-11-13', NULL, 'Md. Zulfikar Ali', 'Mst. Fatema Begum', 'Mst. Hazera Khatun', NULL, NULL, NULL, '1712419630', '74/2/E South Jatrabari,Dhaka-1205', '74/2/E South Jatrabari,Dhaka-1205', 'jpg', NULL, NULL, 1500, 35, '5060741476', 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 04:11:32', NULL, NULL, NULL),
-(1973, 'PFISL-019', 'Khandaker Liakat Ali', '8', '01199353512', 'Asst. Manager', '01/01/1984', '18', '108', '14', '21', '1956', '1956', NULL, 'Bsc (Engineer)', NULL, '0', '2', '2', '2', 'khandaker_liakatali@yahoo.com', NULL, '2', '25/05/2010', '25/05/2010', NULL, 'Late Khandaker Akter Ali', 'Late Rezia Khatun', '', NULL, NULL, NULL, '01199353512', 'Vill: Pathan Para, H: 211, Ps: Boalia, Po: Rajshahi, Dist: Rajshahi', 'Vill: Pathan Para, H: 211, Ps: Boalia, Po: Rajshahi, Dist: Rajshahi', 'jpg', '01755542373', '0000-00-00', 1500, 36, NULL, 1, 0, 1, 1, 1, 0, NULL, '2021-06-06 03:24:57', NULL, NULL, NULL),
-(1974, 'PFISL-020', 'A.H.M. Shahabuddin', '8', '01717637899', 'Asst. Manager', '01/12/1985', '18', '108', '20', '24', '1968', '1956', 'O+', 'MBA (Finance)', NULL, '0', '2', '2', '2', NULL, NULL, '5', '21/07/2010', '21/01/2011', NULL, 'A.Z.M. Shafiuddin', 'Selina Shafiuddin', '', NULL, NULL, NULL, '01717637899', '2/7/A, Tolarbagh, (1st Floor), Mirpur-01, Dhaka-1216', '2/7/A, Tolarbagh, (1st Floor), Mirpur-01, Dhaka-1216', 'jpg', '01932211392', '2021-04-17', 1500, 39, '2694812051028', 1, 0, 1, 1, 1, 0, NULL, '2021-06-07 01:02:13', NULL, NULL, NULL),
-(1975, 'PFISL-021', 'Md. Mustafizur Rahman', '8', '01714880845', 'Asst. Manager', '1981-09-21', '18', '108', '20', '24', '1969', '1969', NULL, NULL, NULL, '0', '2', '2', '2', 'mail-kh_@yahoo.com', NULL, '6', '2010-11-21', '2011-05-21', NULL, 'Md. Fazlur Rahman', 'Mst. Gulanur Begum', '', NULL, NULL, NULL, '01714880845', 'Vill: Nazorpur, Po: Enayetpur, Ps:  Gomostapur, Dist: Chapai Nowabganj', 'Vill: Nazorpur, Po: Enayetpur, Ps:  Gomostapur, Dist: Chapai Nowabganj', 'jpg', '01755542383', NULL, 1500, 44, '8192214342869', 1, 0, 1, 1, 1, 0, NULL, '2021-05-27 12:41:26', NULL, NULL, NULL),
-(1976, 'PFISL-022', 'Raihanul Huq', '8', '01913847146', 'Asst. Manager', '1981-03-01', '18', '108', '20', '24', '1969', '1969', 'O+', NULL, NULL, NULL, '2', '2', '2', 'raihan1stmar@gmail.com', NULL, '6', '2010-12-13', '2011-06-13', NULL, 'Md. Sabiar Rahman', 'Mrs. Dilruba Begum', '', NULL, NULL, NULL, NULL, 'H # 124/125, Ward # 01, Vill: Haragram, Po: Rajshahi Court-6201, Ps: Rajpara, Dist: Rajshahi', 'H # 124/125, Ward # 01, Vill: Haragram, Po: Rajshahi Court-6201, Ps: Rajpara, Dist: Rajshahi', 'jpg', '01755542379', NULL, 1500, 207, '8198501411557', 1, 0, 1, 1, 1, 0, NULL, '2021-05-31 11:44:45', NULL, NULL, NULL),
-(1977, 'PFISL-023', 'Md. Mostafijur Rahman', '8', '1755542387', 'Asst. Manager', NULL, '18', '108', '21', '24', '1956', '1956', 'O Positive', NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', '2011-08-16', '2012-02-16', NULL, 'Md. A.Rahman Mia', 'Mst. Fatema Begum', 'Sakina Akter', NULL, NULL, NULL, '1711483024', '41/5/A Chan Mia Housing, Mohammadpur, Dhaka-1207', '41/5/A Chan Mia Housing, Mohammadpur, Dhaka-1207', 'jpg', NULL, NULL, 1500, 57, '3293071415', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 04:39:40', NULL, NULL, NULL),
-(1978, 'PFISL-024', 'Md. Munimur Rahman', '12', '01717720274', 'Asst. Manager', '15/10/1982', '18', '108', '18', '0', '1958', '1956', NULL, 'MSS', NULL, '0', '2', '2', '2', 'munimpbil@gmail.com', NULL, '7', '01/10/2020', '2020-07-10', NULL, 'Maksudur Rahman', 'Most. Fathema Begum', '', NULL, NULL, NULL, '01912181291', '982, Dargah Gate, Sylhet', 'Vill & Po: Brindaban pur, Ps: Kamalgonj, Dist: Moulvibazar', 'jpg', '01755542358', NULL, 1500, 87, '5815666918230', 1, 0, 0, 1, 1, 0, NULL, '2021-06-07 04:28:05', NULL, NULL, NULL),
-(1979, 'PFISL-025', 'Md. Ali Hossain', '8', NULL, 'Officer', NULL, '18', '110', '20', '24', '1959', '1956', NULL, NULL, NULL, NULL, '2', '2', '1', NULL, NULL, '3', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 0, 1, 0, 1, NULL, '2021-04-12 08:41:44', NULL, NULL, NULL),
-(1980, 'PFISL-026', 'Md. Aminur Rashid', '8', '01715575230', 'Officer', NULL, '18', '110', '20', '24', '1978', '1956', 'B Positive', 'MBA', NULL, '0', '2', '2', '2', 'aminur99@gmail.com', NULL, '7', '2021-01-13', '2021-07-13', NULL, 'Md. Humayun Kabir', 'Rofiqunnasa', 'Fahmida Akter Lopa', NULL, NULL, NULL, '01670580073', 'Lucky House, House-07, Road- 20, Block-B, Shahjalal Uposhohar, Sylhet-3100', 'Lucky House, House-07, Road- 20, Block-B, Shahjalal Uposhohar, Sylhet-3100', 'jpg', '01755542386', NULL, 1200, 46, '3.61774E+12', 1, 0, 1, 1, 1, 0, NULL, '2021-06-13 11:04:09', NULL, NULL, NULL),
-(1981, 'PFISL-027', 'Mohammed Badrul Hasan', '8', '01731022500', 'Officer', '1982-01-01', '18', '110', '21', '24', '1956', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', '2011-01-02', '2011-07-02', NULL, 'Mohammed Mahbubul Alam', 'Bilkis Jahan Akter', '', NULL, NULL, NULL, NULL, 'H # 0/18 (GF), Noorjahan Road, Mohammadpur, Dhaka-1207', 'Vill: Charkawana, Po: Charkawana, Ps: Pakundia, Dist: Kishoreganj, Bangladesh', 'jpg', NULL, NULL, 1200, 84, '4817957838550', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 04:55:48', NULL, NULL, NULL),
-(1982, 'PFISL-028', 'Abdul Ahad', '8', '01812-723005', 'Officer', NULL, '18', '110', '20', '24', '1967', '1956', 'B Positive', 'MBS', NULL, '0', '2', '2', '2', 'romelahad@gmail.com', NULL, '4', NULL, NULL, NULL, 'Md. Abu Bakar Siddique', 'Khodeza Akther', 'Most: Umma Kulsum Tamanna', NULL, NULL, NULL, '01970-322538', 'C/o: Ifthaker Uddin, Shake Bari, Munce Para, North Kattoli, Conolelhat, Pahartoli, Chattogram.', 'C/o: Ifthaker Uddin, Shake Bari, Munce Para, North Kattoli, Conolelhat, Pahartoli, Chattogram.', 'jpg', '01755542388', NULL, 1200, 49, '1.59551E+12', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 04:57:00', NULL, NULL, NULL),
-(1983, 'PFISL-029', 'Md. Shamim Reza', '8', '01713409336', 'Officer', '07/10/1980', '18', '110', '20', '24', '1964', '1956', 'A Positive', 'MSS', NULL, '0', '2', '2', '2', 'shamimreza121@gmail.com', NULL, '8', '13/02/2017', '13/02/2017', NULL, 'Late Ruhul Amin', 'Late Layla Yeasmin', 'Mst. Mahbuba Yeasmin', NULL, NULL, NULL, '1749113103', 'Navana Garden, Building: Rose, 4/B, Kallanpur, Mirpur, Dhaka-1207', 'Navana Garden, Building: Rose, 4/B, Kallanpur, Mirpur, Dhaka-1207', 'jpg', '01755542390', NULL, 1200, 77, '2.69481E+12', 1, 0, 1, 1, 1, 0, NULL, '2021-06-03 05:41:32', NULL, NULL, NULL),
-(1984, 'PFISL-030', 'Md. Shahidul Islam Bhuiyan', '8', '01816726862', 'Officer', '1978-11-24', '18', '110', '20', '24', '1958', '1956', 'B+', NULL, NULL, NULL, '2', '2', '2', 'shahidul_shohag@yahoo.com', NULL, '2', '2017-02-22', '2017-08-22', NULL, 'Mohammad Sahab Uddin Bhuiyan', 'Mst. Samsun Nahar Begum', '', NULL, NULL, NULL, '01759882244', '209/1, Ulon Road, West Rampura, Dhaka-1219', '209/1, Ulon Road, West Rampura, Dhaka-1219', 'jpg', '01755542391', NULL, 1200, 78, '19787217487000011', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 04:59:05', NULL, NULL, NULL),
-(1985, 'PFISL-031', 'Md. Jahed Ali', '8', '01974187271', 'Officer', NULL, '18', '110', '20', '24', '1967', '1956', 'B Positive', NULL, NULL, NULL, '2', '2', '2', 'jahedali84@yahoo.com', NULL, '4', NULL, NULL, NULL, 'Md. Syed Ali', 'Late Monoara Begum', 'Farhana Akter', NULL, NULL, NULL, '1947894289', 'Syed Mojil, 104/A, West Bakalia Rashul Bag R/A, Chawkbazar, Ctg.', 'Syed Mojil, 104/A, West Bakalia Rashul Bag R/A, Chawkbazar, Ctg.', 'jpg', '01755542393', NULL, 1200, 82, '7330905394', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 05:00:05', NULL, NULL, NULL),
-(1986, 'PFISL-032', 'Muhammad Yeadul Islam', '12', '01675600616', 'Officer', '1986-11-01', '18', '110', '18', '24', '1958', '1956', NULL, 'MBS (Management)', NULL, '0', '2', '2', '2', 'tareks777@gmail.com', NULL, '2', '2020-12-01', '2021-06-01', NULL, 'Late Muhammad Yeadul Islam', 'Yeanur Begum', '', NULL, NULL, NULL, NULL, '15/3/C (4th Floor), West, Jatrabari, Dhaka-1204', '15/3/C (4th Floor), West, Jatrabari, Dhaka-1204', 'jpg', NULL, NULL, 1200, 195, '19862693622443348', 1, 0, 0, 1, 1, 0, NULL, '2021-05-27 11:41:19', NULL, NULL, NULL),
-(1987, 'PFISL-033', 'Biplab Saha', '8', '1712805295', 'Jr. Officer', NULL, '18', '111', '7', '14', '1969', '1956', 'B Positive', 'Diploma Engineer', NULL, NULL, '2', '2', '2', 'bsaha1979@gmail.com', NULL, '2', NULL, NULL, NULL, 'Late Bimol Chandra Saha', 'Rochana Saha', 'Anju Saha', NULL, NULL, NULL, '1713200512', '8, Kutubkhali, Jatrabari, Dhaka.', '8, Kutubkhali, Jatrabari, Dhaka.', 'jpg', NULL, NULL, 1200, 83, '2.91628E+12', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 05:01:01', NULL, NULL, NULL),
-(1988, 'PFISL-034', 'Kashphia Alam Chowdhury', '8', '179296265', 'Jr. Officer', NULL, '18', '111', '20', '24', '1958', '1956', 'B Positive', NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, 'Monirul Alam Chowdhury', 'Nazratun Naim', 'Md. Sayed', NULL, NULL, NULL, '179296265', '33/A, Uttor Badda', '33/A, Uttor Badda', NULL, NULL, NULL, 1200, 72, '2832866186', 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 04:20:40', NULL, NULL, NULL),
-(1989, 'PFISL-035', 'Mohammed Mijanur Rahman', '8', '01716858568', 'Jr. Officer', NULL, '18', '111', '20', '24', '1959', '1956', 'B Positive', 'M.Com. (Management)', NULL, '0', '2', '2', '2', NULL, NULL, '3', NULL, NULL, NULL, 'Mohammed Maznur Rahman', 'Begum Nurjahan', 'Nasrin Mahmooda', NULL, NULL, NULL, '8.80E+12', '360, Ahmednagar, Paikpara, Mirpur 1, Dhaka.', '360, Ahmednagar, Paikpara, Mirpur 1, Dhaka.', 'jpg', '01799997473', NULL, 1200, 446, '19792693622285206', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 05:02:18', NULL, NULL, NULL),
-(1990, 'PFISL-036', 'Mohammad Akmal Hossain', '8', 'N/A', 'Junior Officer', NULL, '18', '112', '21', '24', '1956', '1956', 'A Positive', NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, 'Late Moqbul Hossain', 'Late Ambia Hossain', 'N/A', NULL, NULL, NULL, '1726702055', '1383/8/15/3E Rampura Road,Dhaka-1219', '1383/8/15/3E Rampura Road,Dhaka-1219', NULL, NULL, NULL, 1200, 73, '2.61968E+12', 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 04:22:23', NULL, NULL, NULL),
-(1991, 'PFISL-037', 'Mst. Shahebun Akhter', '8', '1913849749', 'Asst.Officer', '1983-10-21', '18', '113', '20', '24', '1958', '1956', 'O Positive', 'BBS (Hon\'s) in Gov. & Politics', NULL, NULL, '2', '2', '2', 'ashahebun@yahoo.com', NULL, '2', '2014-02-24', '2014-08-24', NULL, 'Md.Shahadut Hossain Talukder', 'Jebun Nahar', '', NULL, NULL, NULL, '1533725872', '83/A/2 Boromogbazar, Dhaka', '83/A/2 Boromogbazar, Dhaka', 'jpg', NULL, NULL, 1200, 90, '2847222086', 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 04:23:03', NULL, NULL, NULL),
-(1992, 'PFISL-038', 'Rumana', '8', '01791805341', 'Asst. Officer', '23/11/1991', '18', '114', '20', '24', '1968', '1956', 'B Positive', 'MBA', NULL, '0', '2', '2', '2', 'rumanaaktar154@gmail.com', NULL, '5', '07/07/2011', '2012-01-07', NULL, 'Shahadat Ahmed', 'Kulsum Begum', 'N/A', NULL, NULL, NULL, '01783499707', 'House # 08, Lutfar Rahman Chairman Road, Shampur, Dhaka', 'House # 08, Lutfar Rahman Chairman Road, Shampur, Dhaka', 'jpg', '01799997476', NULL, 1200, 55, '5060741476', 1, 0, 1, 1, 1, 0, NULL, '2021-06-06 05:11:11', NULL, NULL, NULL),
-(1993, 'PFISL-039', 'Mohammad Sakhawat Hossain Khan', '8', '1718818428', 'Asst. Officer', '1979-06-30', '18', '114', '20', '24', '1958', '1956', 'B Positive', 'BA', NULL, '0', '2', '2', '2', 'shamim19980@gmail.com', NULL, '2', '2017-09-14', '2018-03-14', NULL, 'Md. Abdus Samad', 'Shamsun Naher', 'Subrina Sharina', NULL, NULL, NULL, '1730031810', 'Dominno Viento, Flat# 6/A,934, Shahidbagh, Dhaka-1217', 'Dominno Viento, Flat# 6/A,934, Shahidbagh, Dhaka-1217', 'jpg', NULL, NULL, 1200, 63, '9321909327242', 1, 0, 1, 1, 1, 0, NULL, '2021-05-25 04:37:38', NULL, NULL, NULL),
-(1994, 'PFISL-040', 'Rasel Alam', '8', '01772822777', 'Asst.Oficer', '1985-01-05', '18', '115', '21', '24', '1956', '1956', 'B Positive', NULL, NULL, NULL, '2', '2', '2', 'rasel@pfislbd.com', NULL, '2', '2017-03-01', '2017-09-01', NULL, 'Late Al-Hajj Md.Lutfour Rahman', 'Mst. Nabahar Begum', 'Mst. Sabana Khatun', NULL, NULL, NULL, '1711733280', 'Vill: Palpur, Post: Dharampur, Thana: Godagari, Dst: Rajshahi.', 'Vill: Palpur, Post: Dharampur, Thana: Godagari, Dst: Rajshahi..', 'jpg', '01755542382', NULL, 1200, 79, '2389641974', 1, 0, 1, 1, 1, 0, NULL, '2021-05-25 11:20:46', NULL, NULL, NULL),
-(1995, 'PFISL-041', 'Rahmatun Nesa (Rumi)', '8', '1779935104', 'Front Desk Offi', NULL, '18', '116', '7', '14', '1956', '1956', 'B Positive', 'BBA', NULL, NULL, '2', '2', '2', 'rumirahman2016@gmail.com', NULL, '2', NULL, NULL, NULL, 'Md. Abdur Rob', 'Late Merina Begum', 'Md. Mominur Rahman', NULL, NULL, NULL, '1877455125', '47/48 Gha, Middle Badda, Dhaka-1212', '47/48 Gha, Middle Badda, Dhaka-1212', 'jpg', NULL, NULL, NULL, 43, '1508116132', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 05:05:14', NULL, NULL, NULL),
-(1996, 'PFISL-042', 'Kustari Jahan Kuheli', '8', '01723798997', 'Front Desk Offi', '07/05/1989', '18', '116', '20', '24', '1959', '1956', 'O+', 'B.A. (Pass)', NULL, '0', '2', '2', '2', 'kuheli25march@gmail.com', NULL, '3', '06/04/2017', '2017-12-04', NULL, 'Ehia Mandal', 'Dowlotunnesa', '', NULL, NULL, NULL, NULL, 'H # 3/1 B# E, Lalmatia, Dhaka-1207', 'Vill: Rani Bazar, Po: Gharamara, Ps: Boalia, Dist: Rajshahi', 'jpg', NULL, NULL, NULL, 81, '19898192222000017', 1, 0, 1, 1, 1, 0, NULL, '2021-06-02 11:15:47', NULL, NULL, NULL),
-(1997, 'PFISL-043', 'Sharmin Sultana Shimu', '8', '01737206568', 'Front Desk Offi', NULL, '18', '116', '7', '14', '1978', '1956', 'O Positive', 'BSS', NULL, '0', '2', '2', '2', 'sharminsultana568@gmail.com', NULL, '7', NULL, NULL, NULL, 'Md. Khurshed Ali', 'Azizun Nahar', 'Md. Golam Kibria', NULL, NULL, NULL, '01727072067', '6, Kushum Bag, Kaiyum Complex, Islampur, Majortila, Sylhet', '6, Kushum Bag, Kaiyum Complex, Islampur, Majortila, Sylhet', 'jpg', NULL, NULL, NULL, 95, '2378819003', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 05:06:52', NULL, NULL, NULL),
-(1998, 'PFISL-044', 'Jenifar Sultana', '8', '1911188799', 'Front Desk Offi', '18/03/1979', '18', '116', '7', '14', '1964', '1956', 'B Positive', 'BSS', NULL, NULL, '2', '2', '2', 'jenifarsultanamaya@yahoo.com', NULL, '8', '18/03/1979', NULL, NULL, 'Md. Jalil Miah', 'Nazma Banu', 'Md. Anamur Rob Ripon', NULL, NULL, NULL, '1912874347', '276/1, Monipur, Mirpur-2, Dhaka-1207', '276/1, Monipur, Mirpur-2, Dhaka-1207', 'jpg', NULL, NULL, NULL, 42, '5056660391', 0, 0, 0, 0, 1, 0, NULL, '2021-06-03 05:15:21', NULL, NULL, NULL),
-(1999, 'PFISL-045', 'Monzur Hossen', '13', '1819691047', 'Prob. Officer', '1987-01-12', '18', '117', '20', '24', '1958', '1956', 'A Positive', 'MBS (Marketing)', NULL, NULL, '2', '2', '2', 'monzu.com.bd@gmail.com', NULL, '2', '2021-01-03', '2021-07-03', NULL, 'Late Ataur Rahman', 'Late Rabeya Begum', 'Sadia Akter', NULL, NULL, NULL, '1842691047', 'GP Cha 205, (3td Floor), TB Gate, Moakhali, Dhaka', 'GP Cha 205, (3td Floor), TB Gate, Moakhali, Dhaka', 'jpg', NULL, NULL, NULL, 92, '5079852108', 0, 0, 0, 0, 1, 0, NULL, '2021-05-25 12:30:49', NULL, NULL, NULL),
-(2000, 'PFISL-046', 'Md. Matiur Rahman', '13', NULL, 'Prob. Officer', NULL, '18', '117', '21', '24', '1956', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 86, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-03-31 11:44:09', NULL, NULL, NULL),
-(2001, 'PFISL-047', 'Anisur Rahman', '8', '1710882447', 'Electrician', NULL, '18', '118', '7', '14', '1969', '1956', 'O Positive', 'Class: 8', NULL, NULL, '2', '1', '2', 'anispfisl@gmail.com', NULL, '2', NULL, NULL, NULL, 'Mr. Abdur Rakkak', 'Mrs. Sajeda Begum', 'Mrs. Amena Akhter', NULL, NULL, NULL, '1923125018', 'Jaterabari Dhaka', 'Jaterabari Dhaka', NULL, NULL, NULL, NULL, 114, '2368199077', 1, 0, 1, 1, 1, 0, NULL, '2021-06-08 05:08:58', NULL, NULL, NULL),
-(2002, 'PFISL-048', 'Naim Uddin Mahmud Bhuiyan', '8', '1825216445', 'Lift Operator', NULL, '18', '119', '7', '14', '1969', '1956', 'O Positive', 'Class: 8', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Hafiz Ahmed Bhuiyan', 'Nurul Akther', '-', NULL, NULL, NULL, '1817641343', '\"Shahida Villa\" 39 Manik Nagar, Dhaka', '\"Shahida Villa\" 39 Manik Nagar, Dhaka', NULL, NULL, NULL, NULL, 327, '3.01146E+12', 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 04:31:24', NULL, NULL, NULL),
-(2003, 'PFISL-049', 'Md. Sidik Ali', '8', '1931102806', 'Lift Operator', NULL, '18', '119', '7', '14', '1969', '1956', 'B Positive', 'Class: 2', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Late Motaleb', 'Late Latifa Khatun', 'Mst. Amena Khatun', NULL, NULL, NULL, '1401917424', 'Sec # 10, Road # 05, House # 29, Uttara, Dhaka', 'Sec # 10, Road # 05, House # 29, Uttara, Dhaka', NULL, NULL, NULL, NULL, 123, '3.32302E+12', 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 04:32:03', NULL, NULL, NULL),
-(2004, 'PFISL-050', 'Md. Ripon Ali', '8', '1735879452', 'B. Caretaker', NULL, '18', '120', '7', '14', '1969', '1956', 'B Positive', 'Class: 08', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Mr. Md. Omar Ali', 'Mrs. Sofia khatun', 'Mst. Riktha Khatun', NULL, NULL, NULL, '1943243283', NULL, NULL, NULL, NULL, NULL, NULL, 98, '2378461327', 1, 0, 1, 1, 1, 0, NULL, '2021-05-24 04:33:21', NULL, NULL, NULL),
-(2005, 'PFISL-051', 'Md. Motiar Rahman', '8', NULL, 'Driver', NULL, '18', '30', '7', '14', '1969', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 96, NULL, 1, 1, 0, 1, 1, 0, NULL, '2021-05-24 04:33:49', NULL, NULL, NULL),
-(2006, 'PFISL-052', 'Md. Motaleb Hossain', '8', NULL, 'Driver', NULL, '18', '30', '7', '14', '1969', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 112, NULL, 1, 1, 0, 1, 1, 0, NULL, '2021-05-24 04:34:19', NULL, NULL, NULL),
-(2007, 'PFISL-053', 'Md. Hasanur Rashid', '8', '01911355020', 'Office Att.', '01/01/1985', '18', '121', '7', '14', '1964', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '8', '25/09/2007', '22/07/2008', NULL, 'Mohammad Husain', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 'jpg', NULL, NULL, NULL, 101, NULL, 1, 1, 0, 1, 1, 0, NULL, '2021-06-03 05:26:09', NULL, NULL, NULL),
-(2008, 'PFISL-054', 'Md. Shohel', '8', '01916607713', 'Office Att.', '1987-07-12', '18', '121', '7', '14', '1967', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '4', '2009-03-04', '2009-09-04', NULL, 'Md. Abdur Rashid', 'Suriya Begum', '', NULL, NULL, NULL, NULL, 'T-87-D, New Zimkhana Staff Quarter, Nitaigonj, Narayangonj Shadar, Narayangong', 'T-87-D, New Zimkhana Staff Quarter, Nitaigonj, Narayangonj Shadar, Narayangong', 'jpg', NULL, NULL, NULL, 104, NULL, 1, 1, 0, 1, 1, 0, NULL, '2021-05-31 03:37:59', NULL, NULL, NULL),
-(2009, 'PFISL-055', 'Md. Mostak Ahmed', '8', '01918759592', 'Office Att.', '1980-12-31', '18', '121', '7', '14', '1969', '1969', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '6', '2009-03-04', '2009-09-04', NULL, 'Md. Toafazzal Haque', 'Mosd. Sahajan Begum', '', NULL, NULL, NULL, NULL, 'Vill: Jamira, Madhha Para, Po: Jamira, Ps: Zilla Putia, Dist: Rajshahi', 'Vill: Jamira, Madhha Para, Po: Jamira, Ps: Zilla Putia, Dist: Rajshahi', 'jpg', NULL, NULL, NULL, 105, '8118227611507', 1, 1, 0, 1, 1, 0, NULL, '2021-05-27 12:24:06', NULL, NULL, NULL),
-(2010, 'PFISL-056', 'Md. Abul Basar', '8', '01925258685', 'Office Att.', '1983-06-12', '18', '121', '7', '14', '1969', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '6', '2009-03-15', '2009-09-15', NULL, 'Md. Siddik Ali', 'Mst. Monoara Begum', '', NULL, NULL, NULL, NULL, 'Road: Dewanpara, Po: Shampur, Ps: Katakhali, Dist: Rajshahi', 'Road: Dewanpara, Po: Shampur, Ps: Katakhali, Dist: Rajshahi', 'jpg', NULL, NULL, NULL, 106, '8127205409598', 1, 1, 0, 1, 1, 0, NULL, '2021-05-31 02:25:00', NULL, NULL, NULL),
-(2011, 'PFISL-057', 'Md. Milon Mridha', '8', '1712650771', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'O Positive', 'SSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, '2009-12-12', NULL, 'Late Md. Shamsul Haque Mridha', 'Bakul Begum', 'Taslima Begum', NULL, NULL, NULL, '1746710246', 'Miajan goli, Maniknagar, Dhaka', 'Miajan goli, Maniknagar, Dhaka', NULL, NULL, NULL, NULL, 324, '1.98E+16', 1, 1, 0, 1, 1, 0, NULL, '2021-05-24 04:41:32', NULL, NULL, NULL),
-(2012, 'PFISL-058', 'Md. Siddiqur Rahman', '8', '1721657819', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'A Positive', 'SSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Mr. Abdul Majid Howlader', 'Shamsun Naher', 'Munni Begum', NULL, NULL, NULL, '1746305701', '334/7A, Mirpur-1,  Dhaka', '334/7A, Mirpur-1,  Dhaka', NULL, NULL, NULL, NULL, 118, '1.98779E+16', 1, 1, 0, 1, 1, 0, NULL, '2021-05-24 04:42:15', NULL, NULL, NULL),
-(2013, 'PFISL-059', 'Neamat Karim Bhuiyan', '8', '1727186785', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'O Positive', 'HSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Mr. Amir Hossain Bhuiyan', 'Razia Begum', 'Shahina Akhter', NULL, NULL, NULL, '1715216962', 'Block # A, 103/4, Rainkhola, Mitpur-01, Dhaka', 'Block # A, 103/4, Rainkhola, Mitpur-01, Dhaka', NULL, NULL, NULL, NULL, 110, '6887763198', 1, 1, 0, 1, 1, 0, NULL, '2021-05-24 04:42:41', NULL, NULL, NULL),
-(2014, 'PFISL-060', 'Md. Sajibuzzaman', '8', '1817693677', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'B Positive', 'SSC', NULL, NULL, '2', '1', '2', NULL, NULL, '2', NULL, '2010-09-03', NULL, 'Mr. Md. Mostafa Sarker', 'Mst. Shirina begum', 'Mst. Sumi Akhter', NULL, NULL, NULL, '1824502384', 'Dhalosher, demra, Dhaka', 'Dhalosher, demra, Dhaka', NULL, NULL, NULL, NULL, 111, '1.99013E+16', 1, 1, 0, 1, 1, 0, NULL, '2021-05-24 04:43:01', NULL, NULL, NULL),
-(2015, 'PFISL-061', 'Md. Mintu Bapari', '8', '1920911332', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'O Positive', 'SSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Late Abdul Mannan Bapari', 'Late Anowara Begum', 'Lacky Akter', NULL, NULL, NULL, '1982086417', 'Chittagong Road, Siddherjang, Narayangang', 'Chittagong Road, Siddherjang, Narayangang', NULL, NULL, NULL, NULL, 89, '2.69924E+12', 1, 1, 0, 1, 1, 0, NULL, '2021-05-24 04:43:31', NULL, NULL, NULL),
-(2016, 'PFISL-062', 'Seikh Ratan', '8', '01680790285', 'Office Att.', '16/07/1991', '18', '121', '7', '14', '1959', '1956', NULL, 'Class: 4 pass', NULL, NULL, '2', '1', '2', NULL, NULL, '3', NULL, NULL, NULL, 'Seikh Abu Hanif', 'Hosne Ara Begum', '', NULL, NULL, NULL, NULL, 'H # 08, R # 08, S # 06, Uttara, Dhaka', 'Vill: Rayer Mahal, Po: Gpo, Ps: Khalispur, Dist: Khulna', 'jpg', NULL, NULL, NULL, 116, NULL, 1, 1, 0, 1, 1, 0, NULL, '2021-06-02 11:35:19', NULL, NULL, NULL),
-(2017, 'PFISL-063', 'Anowarul Hoque Rubel', '8', '01858809528', 'Office Att.', '11/07/1981', '18', '121', '7', '14', '1968', '1956', NULL, 'SSC', NULL, '0', '2', '1', '2', NULL, NULL, '5', '01/01/2015', '2015-07-01', NULL, 'Saidul haque', 'Saphali Haque Bhuiyan', '', NULL, NULL, NULL, '01858809528', '69/3, Kathalbagan Bazar, Dhanmondi, Dhaka', 'Vill: Yeapur, Po: Ghatala, Ps: Begumgang, Dist: Noakhali', 'jpg', NULL, NULL, NULL, 125, '19817510763000011', 1, 1, 0, 1, 1, 0, NULL, '2021-06-06 05:24:13', NULL, NULL, NULL),
-(2018, 'PFISL-064', 'Md. Abdul Aziz', '8', '1922789504', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'B Positive', 'SSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Md. Hanif Ali', 'Rajia Begum', 'Lipi Nazneen', NULL, NULL, NULL, '1771678889', '63, Dilkusha, Dhaka-1000', '63, Dilkusha, Dhaka-1000', NULL, NULL, NULL, NULL, 127, '8684365532', 1, 1, 0, 1, 1, 0, NULL, '2021-05-24 04:44:45', NULL, NULL, NULL),
-(2019, 'PFISL-065', 'Mohammad Ali', '14', NULL, 'Cleaner', NULL, '18', '122', '7', '14', '1966', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 197, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-04-11 04:31:18', NULL, NULL, NULL),
-(2020, 'PFISL-066', 'Palash Das', '14', NULL, 'Cleaner', '1893-01-01', '18', '122', '7', '14', '1967', '1978', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '4', NULL, NULL, NULL, 'Nepal Chandra das', 'Monzu Rani Das', '', NULL, NULL, NULL, NULL, 'Road: Horipur, Po: Wazadia Madrasa, Ps: Baizid, Dist: Chittagong', 'Road: Horipur, Po: Wazadia Madrasa, Ps: Baizid, Dist: Chittagong', 'jpg', NULL, NULL, NULL, 465, '1590603628512', 1, 0, 0, 1, 1, 0, NULL, '2021-05-31 02:45:48', NULL, NULL, NULL),
-(2021, 'PFISL-067', 'Md. Abdul Malek', '14', '01918821139', 'Cleaner', '1987-04-01', '18', '122', '7', '14', '1969', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '6', '2011-07-25', '2012-01-25', NULL, 'Md. Abbas Ali', 'Mst. Sajeda Begum', '', NULL, NULL, NULL, '01937414540', 'Vill: Dawean Para, Po: Shampur, Ps: Motihar, Dist: Rajshahi', 'Vill: Dawean Para, Po: Shampur, Ps: Motihar, Dist: Rajshahi', 'jpg', NULL, NULL, NULL, 205, NULL, 1, 0, 0, 1, 1, 1, NULL, '2021-05-27 12:03:22', NULL, NULL, NULL),
-(2022, 'PFISL-068', 'Md. Saiful Islam', '14', '01711947147', 'Cleaner', '1970-11-12', '18', '122', '7', '14', '1969', '1969', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '6', NULL, NULL, NULL, 'Late Afsar Ali Sarkar', 'Mst. Gulsanara Begum', '', NULL, NULL, NULL, 'Vill: Maskata D', 'Vill: Maskata Deghi, Po: Shampur, Ps: Motihar, Dist: Rajshahi', NULL, 'jpg', NULL, NULL, NULL, 206, '8127204407369', 1, 0, 0, 1, 1, 0, NULL, '2021-05-27 12:12:05', NULL, NULL, NULL),
-(2023, 'PFISL-069', 'Md. Ripon Nayek', '14', '01772290092', 'Cleaner', '04/03/1982', '18', '122', '7', '14', '1978', '1956', NULL, NULL, NULL, '0', '2', '2', '2', NULL, NULL, '7', NULL, NULL, NULL, 'Ajit Nayek', 'Anjana Nayek', '', NULL, NULL, NULL, '01763696560', '83/A, Bisongo, Kazitula, Sylhet-3100', 'Khan Tea Garden, Panichora, Jointapur, Sylhet', 'jpg', NULL, NULL, NULL, 252, '9115345214558', 1, 0, 0, 1, 1, 0, NULL, '2021-06-07 03:35:43', NULL, NULL, NULL),
-(2024, 'PFISL-070', 'Md. Ruhul Amin', '14', NULL, 'Cleaner', NULL, '18', '122', '7', '14', '1968', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '5', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 131, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-04-12 02:46:20', NULL, NULL, NULL),
-(2025, 'PFISL-071', 'Md. Shafirul Islam', '14', '1705855764', 'Cleaner', '2/2/1992', '18', '122', '7', '14', '1966', '1956', 'A Positive', 'Class: 8', NULL, NULL, '2', '2', '2', 'N/A', NULL, '2', NULL, NULL, NULL, 'Mohammad Bishu Mondol', 'Mst. Helana Begum', 'Mst. Amiza Begum', NULL, NULL, NULL, '1779917506', '63, Dilkusha, Dhaka-1000', '63, Dilkusha, Dhaka-1000', NULL, NULL, NULL, NULL, 193, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-04-11 04:33:46', NULL, NULL, NULL),
-(2026, 'PFISL-072', 'Md. Shakil', '14', NULL, 'Cleaner', NULL, '18', '122', '7', '14', '1966', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 194, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-04-11 04:35:01', NULL, NULL, NULL),
-(2027, 'PFISL-073', 'Runa', '14', '', 'Cleaner', '', '18', '122', '7', '24', '1964', '1956', '', '', NULL, 'N/A', '2', '2', '1', '', NULL, '8', '', '', NULL, '', '', '', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, '', 1, 0, 0, 1, 0, 1, NULL, NULL, NULL, NULL, NULL),
-(2028, 'PFISL-074', 'Md. Msaum', '14', '', 'Cleaner', '', '18', '122', '7', '24', '1964', '1956', '', '', NULL, 'N/A', '2', '2', '1', '', NULL, '8', '', '', NULL, '', '', '', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, '', 1, 0, 0, 1, 0, 1, NULL, NULL, NULL, NULL, NULL),
-(2029, 'PFISL-075', 'Poddada Bappi', '14', '', 'Cleaner', '', '18', '122', '7', '24', '1966', '1956', '', '', NULL, 'N/A', '2', '2', '2', '', NULL, '2', '', '', NULL, '', '', '', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, '', 1, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, NULL),
-(2030, 'PFISL-076', 'Md. Sagor', '14', '1586048345', 'Cleaner', NULL, '18', '122', '7', '14', '1966', '1956', NULL, 'Class: 2', NULL, NULL, '2', '2', '2', '-', NULL, '2', NULL, NULL, NULL, 'Hamlal Das', 'Shanu Rani', '-', NULL, NULL, NULL, '1985341849', 'Rishi Para, Manik Nagar, Dhaka', 'Rishi Para, Manik Nagar, Dhaka', NULL, NULL, NULL, NULL, 198, NULL, 1, 0, 0, 1, 1, 0, NULL, '2021-04-11 04:36:53', NULL, NULL, NULL);
+INSERT INTO `tbl_employee` (`emp_id`, `emp_empid`, `emp_name`, `emp_type`, `emp_phone`, `emp_sfid`, `emp_dob`, `emp_country`, `emp_desig_id`, `emp_depart_id`, `emp_sdepart_id`, `emp_seniorid`, `emp_authperson`, `emp_blgrp`, `emp_education`, `emp_wknd`, `emp_vehicle`, `emp_workhr`, `emp_otent`, `emp_shiftid`, `emp_email`, `emp_cicoid`, `emp_jlid`, `emp_joindate`, `emp_confirmdate`, `emp_workhistoryfrom`, `emp_father`, `emp_mother`, `emp_spname`, `spouse_phone`, `emp_child1`, `emp_child2`, `emp_emjcontact`, `emp_crntaddress`, `emp_prmntaddress`, `emp_imgext`, `emp_officecontact`, `emp_handsetallocdate`, `emp_allocamount`, `emp_machineid`, `emp_nid`, `pf`, `washing`, `lfa`, `tax_allow`, `emp_status`, `status_condition`, `inactive_datetime`, `emp_created_at`, `emp_updated_at`, `emp_rejected_at`, `min_salary`, `target_percent`) VALUES
+(116, 'Atech-1001', 'Atech HRM User', '9', '01734222391', '123', '1998-01-03', '18', '1', '1', '1', '1963', '1963', 'A+', 'Msc In Engineering', '1', '1', '2', '1', '1', 'sales@acquaintbd.com', NULL, '1', '2018-02-18', '2018-08-18', NULL, NULL, NULL, 'Saymoon Akter', NULL, '', '', '01754148869', 'Dhaka', 'Dhaka', 'png', NULL, NULL, NULL, 1111111, '19983012960000', 1, 0, 0, 1, 0, 0, NULL, '2018-04-17 05:37:03', '2020-09-20 02:38:57', NULL, NULL, NULL),
+(1955, 'PFISL-001', 'Kazi Fariduddin Ahmed', '9', '0199911993', '123', '1976-05-04', '18', '101', '7', '14', '1955', '1955', 'A+', 'HSC', '1', '1', '2', '2', '2', 'test@test.com', NULL, '2', '2020-03-02', '2020-09-02', NULL, 'Jack', 'alexandra', '', '32436534', NULL, NULL, '489357485', 'Motijheel Dhaka', 'Gulistan Dhaka', NULL, '4747857834', '2021-05-20', 1000, 1, '092734i353435', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-20 04:33:42', NULL, '20000', '205'),
+(1956, 'PFISL-002', 'Md. Musfiqur Rahman', '8', NULL, 'DMD & CS', NULL, '18', '102', '7', '14', '1955', '1955', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 33, NULL, 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-24 03:48:20', NULL, NULL, NULL),
+(1957, 'PFISL-003', 'Muhammad Kaochhar Molla', '11', NULL, 'VP', NULL, '18', '103', '17', '0', '1956', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-04-24 05:00:30', NULL, NULL, NULL),
+(1958, 'PFISL-004', 'Sarwar', '12', '0171112483', 'SAVP', '1982-02-01', '18', '104', '1', '1', '1956', '1956', 'A+', 'AAAAAA', '1', '0', '2', '2', '2', 's_alayet@yahoo.com', NULL, '2', '2020-10-01', '2021-04-01', NULL, 'Samsul Haque Fakir', 'Amiran Nessa', '', 'AAAAAA', NULL, NULL, '0171112483', '73/H/F (3rd Floor), Central Road, Dhanmondi, Dhaka', '73/H/F (3rd Floor), Central Road, Dhanmondi, Dhaka', 'jpg', NULL, NULL, NULL, 393, 'AAAAAA', 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-06-02 05:03:10', NULL, NULL, NULL),
+(1959, 'PFISL-005', 'Nuruzzaman', '12', '01712136889', 'AVP', '1979-10-15', '18', '105', '18', '24', '1958', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', 'md.nuruzzaman79@gmail.com', NULL, '2', '2020-10-01', '2021-04-01', NULL, 'Late Afsar Ali', 'Monowara Begum', '', NULL, NULL, NULL, '01712136889', '16/2/C (4th Floor), Commissioner Road, Kallayanpur, Dhaka-1207', '6/2/C (4th Floor), Commissioner Road, Kallayanpur, Dhaka-1207', 'jpg', NULL, NULL, NULL, 94, '2694811028394', 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-06-03 05:55:40', NULL, NULL, NULL),
+(1960, 'PFISL-006', 'Chanchal Kumar Saha', '12', '01912222791', 'AVP', '1981-04-16', '18', '105', '18', '24', '1958', '1956', NULL, 'M.Com. (Management)', NULL, NULL, '2', '2', '2', 'ck_saha07@yahoo.com', NULL, '2', '2020-01-01', '2020-07-01', NULL, 'Shawpan Kumar Saha', 'Asa Rani Saha', '', NULL, NULL, NULL, '01912222791', '78/79, H3, Central Road, Dhanmondi, Dhaka-1205', '8/79, H3, Central Road, Dhanmondi, Dhaka-1205', 'jpg', NULL, NULL, NULL, 291, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-05-24 03:25:42', NULL, NULL, NULL),
+(1961, 'PFISL-007', 'Nuruzzaman', '12', NULL, 'AVP', NULL, '18', '105', '18', '24', '1958', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '3', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 447, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-06-03 05:42:02', NULL, NULL, NULL),
+(1962, 'PFISL-008', 'Hasanuzzaman', '8', '1531307900', 'Sr. Manager', NULL, '18', '106', '19', '24', '1956', '1956', 'B Positive', NULL, NULL, NULL, '2', '2', '2', 'pfimcd@gmail.com', NULL, '2', NULL, NULL, NULL, 'Late M.A. Rouf', 'Hasina Begum', 'Miratious Siddika Mousumi', NULL, NULL, NULL, '1531307900', '143 East Rampura (3rd Floor), Dhaka-1219', '143 East Rampura (3rd Floor), Dhaka-1219', 'jpg', NULL, NULL, 1500, 91, '736656564091', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 04:47:17', NULL, NULL, NULL),
+(1963, 'PFISL-009', 'Mohammad Moazzem Mamun Khan', '8', '017111429847', 'Manager', NULL, '18', '107', '14', '21', '1956', '1956', 'A+', 'M.Sc. (Physics)', NULL, '0', '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, 'Md. Sohrab Uddin Khan', 'Nurun Nahar Begum', '', NULL, NULL, NULL, NULL, 'H # 02, R # 02, B # A, Muktipalli, Shahjadpur, Badda, Dhaka', 'H # 02, R # 02, B # A, Muktipalli, Shahjadpur, Badda, Dhaka', 'jpg', '01755542347', '2009-01-01', 1500, 320, '2610457046250', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-07 04:04:16', NULL, NULL, NULL),
+(1964, 'PFISL-010', 'Md. Rizoyanul Islam', '8', '01911038907', 'Manager', '06/11/1981', '18', '107', '20', '24', '1958', '1956', 'O Positive', 'MBA', NULL, '0', '2', '2', '2', 'rizlam308@gmail.com', NULL, '8', '25/06/2007', '25/12/2007', NULL, 'Md. Nurul Islam', 'Rokeya Islam', 'Sabina Akter', NULL, NULL, NULL, '1750373766', 'Road # 15, House #15, Sec # 10, Uttara, Dhaka', 'Road # 15, House #15, Sec # 10, Uttara, Dhaka', 'jpg', '01755542349', NULL, 1500, 6, NULL, 1, 0, 1, 1, 0, 2, NULL, NULL, '2021-06-03 05:35:39', NULL, NULL, NULL),
+(1965, 'PFISL-011', 'Khandker Rehana Akter', '8', '1854311017', 'Manager', '1978-12-02', '18', '107', '20', '24', '1958', '1956', 'O Positive', 'MSc', NULL, NULL, '2', '2', '2', 'bakila2007@gmail.com', NULL, '2', '2007-10-01', '2008-04-01', NULL, 'Late Khandker Ahmed Ullah', 'Nurjahan Begum', 'Md. Mojibur Rahman', NULL, NULL, NULL, '1911095831', '1483/A, 2nd Floor), Khilgoan, Dhaka-1219', '1483/A, 2nd Floor), Khilgoan, Dhaka-1219', 'jpg', NULL, NULL, NULL, 8, '3283311649', 1, 0, 1, 1, 0, 1, NULL, NULL, '2021-05-25 12:24:39', NULL, NULL, NULL),
+(1966, 'PFISL-012', 'Mohammad Saiful Azam', '8', '01717819336', 'Manager', NULL, '18', '107', '7', '14', '1956', '1956', 'A Positive', 'MCom', NULL, NULL, '2', '2', '2', 'azampfisl@gmail.com', NULL, '2', NULL, NULL, NULL, 'Late Md. Siddiqur Rahman', 'Late Monoara Begum', 'Marin Tangina Ahmed', NULL, NULL, NULL, '1819135269', '1044/3 \"Parveen View\" (1st Floor), Malibagh Chowdhuri Para, Dhaka', '1044/3 \"Parveen View\" (1st Floor), Malibagh Chowdhuri Para, Dhaka', 'jpg', '01755542354', NULL, 1500, 13, '2826009736', 1, 0, 1, 1, 0, 1, NULL, NULL, '2021-06-08 04:50:21', NULL, NULL, NULL),
+(1967, 'PFISL-013', 'Tareq Mohammad Muinul Hossain', '8', '01722840180', 'Manager', '1983-11-04', '18', '107', '20', '24', '1958', '1956', 'AB Positive', 'MBA, Finance & Banking', NULL, NULL, '2', '2', '2', 'tareqmuin@gmail.com', NULL, '4', '2009-08-02', '2010-02-02', NULL, 'Ahmad Hossain', 'Khaleda Khanam', 'Bibi Amena', NULL, NULL, NULL, '1817710763', 'Chemon Nibash, 2012, Karnaphuli R/A, Ek-Kilometer, Chandgaon, Chittagong', 'Chemon Nibash, 2012, Karnaphuli R/A, Ek-Kilometer, Chandgaon, Chittagong', 'jpg', '01755542359', NULL, 1500, 25, '1592830677876', 1, 0, 1, 1, 0, 2, NULL, NULL, '2021-05-31 03:12:01', NULL, NULL, NULL),
+(1968, 'PFISL-014', 'Shamim Akter', '8', '01716278742', 'Asst. Manager', NULL, '18', '108', '20', '24', '1958', '1956', NULL, 'M.Com. (Accounting)', NULL, '0', '2', '2', '2', 'shamim5467@yahoo.comn', NULL, '5', NULL, '2009-02-06', NULL, 'Late Alhaj Afzal Hossain', 'Mrs. Nurjahan Begum', '', NULL, NULL, NULL, '01712675421', '2/2/7, Tolarbagh, Mirpur-01, Dhaka', 'Vill: Bilsolongi, Po: Bilsolongi, Ps: Shanthia, Dist: Pabna', 'jpg', '01755542353', NULL, 1500, 12, '3255601084', 1, 0, 1, 1, 0, 1, NULL, NULL, '2021-06-06 05:02:51', NULL, NULL, NULL),
+(1969, 'PFISL-015', 'Akteruzzaman', '8', '01721036527', 'Asst. Manager', '1981-09-11', '18', '108', '20', '24', '1958', '1956', NULL, 'M.Sc. (Mathematics)', NULL, NULL, '2', '2', '2', NULL, NULL, '6', '2009-04-15', '2009-10-15', NULL, 'Asraf Ali Ahmed', 'Ayesha Siddika', '', NULL, NULL, NULL, '01721036527', 'Vill: Barafala, Po: Nazirpur, Ps: Badalgachi, Dist: Rajshahi', 'Vill: Barafala, Po: Nazirpur, Ps: Badalgachi, Dist: Rajshahi', 'jpg', '01755542360', NULL, 1500, 19, NULL, 1, 0, 1, 1, 0, 2, NULL, NULL, '2021-05-31 02:13:13', NULL, NULL, NULL),
+(1970, 'PFISL-016', 'Md. Mozammel Hossain', '8', '1755-542367', 'Asst. Manager', '1977-02-20', '18', '108', '20', '24', '1958', '1956', 'B Positive', 'MBA, (Marketing)', NULL, NULL, '2', '2', '2', 'mbamh123@gmail.com', NULL, '2', '2009-08-26', '2010-02-26', NULL, 'Md. Shamsul Huda', 'Mst. Masuma Khatun', 'Mst. Navana', NULL, NULL, NULL, '01716-311455', '316/12/4, South Goran, Dhaka-1219', '316/12/4, South Goran, Dhaka-1219', 'jpg', '1755-542367', NULL, 1500, 28, '8192221352589', 1, 0, 1, 1, 0, 1, '2021-08-24 00:00:00', NULL, '2021-05-24 04:10:06', NULL, NULL, NULL),
+(1971, 'PFISL-017', 'Sheikh Md Asaduzzaman', '8', '01913100148', 'Asst Manager', '01/03/1980', '18', '109', '20', '24', '1978', '1956', 'O Positive', 'M.Com.', NULL, '0', '2', '2', '2', 'asad101sk@gmail.com', NULL, '7', '01/09/2009', '2009-07-09', NULL, 'Md Mosharrof Hossain', 'Momena Hossain', 'Sumi Hyder ', NULL, NULL, NULL, '01716616830', 'C/43, R#8, Section#7, Arambag, Rupnagar, Mirpur-1200', 'C/43, R#8, Section#7, Arambag, Rupnagar, Mirpur-1200', 'jpg', '01755542368', NULL, 1500, 29, '6860581385', 1, 0, 1, 1, 0, 2, '2021-08-24 00:00:00', NULL, '2021-06-07 03:57:17', '2021-08-24 16:24:17', NULL, NULL),
+(1972, 'PFISL-018', 'Md. Mofazzal Hossain', '8', '1712419630', 'Asst. Manager', NULL, '18', '108', '20', '24', '1958', '1956', 'O Positive', NULL, NULL, NULL, '2', '2', '2', 'mmoffazzal@gmail.com', NULL, '2', '2010-05-13', '2010-11-13', NULL, 'Md. Zulfikar Ali', 'Mst. Fatema Begum', 'Mst. Hazera Khatun', NULL, NULL, NULL, '1712419630', '74/2/E South Jatrabari,Dhaka-1205', '74/2/E South Jatrabari,Dhaka-1205', 'jpg', NULL, NULL, 1500, 35, '5060741476', 1, 0, 1, 1, 0, 1, '2021-08-24 00:00:00', NULL, '2021-05-24 04:11:32', NULL, NULL, NULL),
+(1973, 'PFISL-019', 'Khandaker Liakat Ali', '8', '01199353512', 'Asst. Manager', '01/01/1984', '18', '108', '14', '21', '1956', '1956', NULL, 'Bsc (Engineer)', NULL, '0', '2', '2', '2', 'khandaker_liakatali@yahoo.com', NULL, '2', '25/05/2010', '25/05/2010', NULL, 'Late Khandaker Akter Ali', 'Late Rezia Khatun', '', NULL, NULL, NULL, '01199353512', 'Vill: Pathan Para, H: 211, Ps: Boalia, Po: Rajshahi, Dist: Rajshahi', 'Vill: Pathan Para, H: 211, Ps: Boalia, Po: Rajshahi, Dist: Rajshahi', 'jpg', '01755542373', '0000-00-00', 1500, 36, NULL, 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-06 03:24:57', NULL, NULL, NULL),
+(1974, 'PFISL-020', 'A.H.M. Shahabuddin', '8', '01717637899', 'Asst. Manager', '01/12/1985', '18', '108', '20', '24', '1968', '1956', 'O+', 'MBA (Finance)', NULL, '0', '2', '2', '2', NULL, NULL, '5', '21/07/2010', '21/01/2011', NULL, 'A.Z.M. Shafiuddin', 'Selina Shafiuddin', '', NULL, NULL, NULL, '01717637899', '2/7/A, Tolarbagh, (1st Floor), Mirpur-01, Dhaka-1216', '2/7/A, Tolarbagh, (1st Floor), Mirpur-01, Dhaka-1216', 'jpg', '01932211392', '2021-04-17', 1500, 39, '2694812051028', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-07 01:02:13', NULL, NULL, NULL),
+(1975, 'PFISL-021', 'Md. Mustafizur Rahman', '8', '01714880845', 'Asst. Manager', '1981-09-21', '18', '108', '20', '24', '1969', '1969', NULL, NULL, NULL, '0', '2', '2', '2', 'mail-kh_@yahoo.com', NULL, '6', '2010-11-21', '2011-05-21', NULL, 'Md. Fazlur Rahman', 'Mst. Gulanur Begum', '', NULL, NULL, NULL, '01714880845', 'Vill: Nazorpur, Po: Enayetpur, Ps:  Gomostapur, Dist: Chapai Nowabganj', 'Vill: Nazorpur, Po: Enayetpur, Ps:  Gomostapur, Dist: Chapai Nowabganj', 'jpg', '01755542383', NULL, 1500, 44, '8192214342869', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-27 12:41:26', NULL, NULL, NULL),
+(1976, 'PFISL-022', 'Raihanul Huq', '8', '01913847146', 'Asst. Manager', '1981-03-01', '18', '108', '20', '24', '1969', '1969', 'O+', NULL, NULL, NULL, '2', '2', '2', 'raihan1stmar@gmail.com', NULL, '6', '2010-12-13', '2011-06-13', NULL, 'Md. Sabiar Rahman', 'Mrs. Dilruba Begum', '', NULL, NULL, NULL, NULL, 'H # 124/125, Ward # 01, Vill: Haragram, Po: Rajshahi Court-6201, Ps: Rajpara, Dist: Rajshahi', 'H # 124/125, Ward # 01, Vill: Haragram, Po: Rajshahi Court-6201, Ps: Rajpara, Dist: Rajshahi', 'jpg', '01755542379', NULL, 1500, 207, '8198501411557', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-31 11:44:45', NULL, NULL, NULL),
+(1977, 'PFISL-023', 'Md. Mostafijur Rahman', '8', '1755542387', 'Asst. Manager', NULL, '18', '108', '21', '24', '1956', '1956', 'O Positive', NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', '2011-08-16', '2012-02-16', NULL, 'Md. A.Rahman Mia', 'Mst. Fatema Begum', 'Sakina Akter', NULL, NULL, NULL, '1711483024', '41/5/A Chan Mia Housing, Mohammadpur, Dhaka-1207', '41/5/A Chan Mia Housing, Mohammadpur, Dhaka-1207', 'jpg', NULL, NULL, 1500, 57, '3293071415', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 04:39:40', NULL, NULL, NULL),
+(1978, 'PFISL-024', 'Md. Munimur Rahman', '12', '01717720274', 'Asst. Manager', '15/10/1982', '18', '108', '18', '0', '1958', '1956', NULL, 'MSS', NULL, '0', '2', '2', '2', 'munimpbil@gmail.com', NULL, '7', '01/10/2020', '2020-07-10', NULL, 'Maksudur Rahman', 'Most. Fathema Begum', '', NULL, NULL, NULL, '01912181291', '982, Dargah Gate, Sylhet', 'Vill & Po: Brindaban pur, Ps: Kamalgonj, Dist: Moulvibazar', 'jpg', '01755542358', NULL, 1500, 87, '5815666918230', 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-06-07 04:28:05', NULL, NULL, NULL),
+(1979, 'PFISL-025', 'Md. Ali Hossain', '8', NULL, 'Officer', NULL, '18', '110', '20', '24', '1959', '1956', NULL, NULL, NULL, NULL, '2', '2', '1', NULL, NULL, '3', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 0, 1, 0, 1, NULL, NULL, '2021-04-12 08:41:44', NULL, NULL, NULL),
+(1980, 'PFISL-026', 'Md. Aminur Rashid', '8', '01715575230', 'Officer', NULL, '18', '110', '20', '24', '1978', '1956', 'B Positive', 'MBA', NULL, '0', '2', '2', '2', 'aminur99@gmail.com', NULL, '7', '2021-01-13', '2021-07-13', NULL, 'Md. Humayun Kabir', 'Rofiqunnasa', 'Fahmida Akter Lopa', NULL, NULL, NULL, '01670580073', 'Lucky House, House-07, Road- 20, Block-B, Shahjalal Uposhohar, Sylhet-3100', 'Lucky House, House-07, Road- 20, Block-B, Shahjalal Uposhohar, Sylhet-3100', 'jpg', '01755542386', NULL, 1200, 46, '3.61774E+12', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-13 11:04:09', NULL, NULL, NULL),
+(1981, 'PFISL-027', 'Mohammed Badrul Hasan', '8', '01731022500', 'Officer', '1982-01-01', '18', '110', '21', '24', '1956', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', '2011-01-02', '2011-07-02', NULL, 'Mohammed Mahbubul Alam', 'Bilkis Jahan Akter', '', NULL, NULL, NULL, NULL, 'H # 0/18 (GF), Noorjahan Road, Mohammadpur, Dhaka-1207', 'Vill: Charkawana, Po: Charkawana, Ps: Pakundia, Dist: Kishoreganj, Bangladesh', 'jpg', NULL, NULL, 1200, 84, '4817957838550', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 04:55:48', NULL, NULL, NULL),
+(1982, 'PFISL-028', 'Abdul Ahad', '8', '01812-723005', 'Officer', NULL, '18', '110', '20', '24', '1967', '1956', 'B Positive', 'MBS', NULL, '0', '2', '2', '2', 'romelahad@gmail.com', NULL, '4', NULL, NULL, NULL, 'Md. Abu Bakar Siddique', 'Khodeza Akther', 'Most: Umma Kulsum Tamanna', NULL, NULL, NULL, '01970-322538', 'C/o: Ifthaker Uddin, Shake Bari, Munce Para, North Kattoli, Conolelhat, Pahartoli, Chattogram.', 'C/o: Ifthaker Uddin, Shake Bari, Munce Para, North Kattoli, Conolelhat, Pahartoli, Chattogram.', 'jpg', '01755542388', NULL, 1200, 49, '1.59551E+12', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 04:57:00', NULL, NULL, NULL),
+(1983, 'PFISL-029', 'Md. Shamim Reza', '8', '01713409336', 'Officer', '07/10/1980', '18', '110', '20', '24', '1964', '1956', 'A Positive', 'MSS', NULL, '0', '2', '2', '2', 'shamimreza121@gmail.com', NULL, '8', '13/02/2017', '13/02/2017', NULL, 'Late Ruhul Amin', 'Late Layla Yeasmin', 'Mst. Mahbuba Yeasmin', NULL, NULL, NULL, '1749113103', 'Navana Garden, Building: Rose, 4/B, Kallanpur, Mirpur, Dhaka-1207', 'Navana Garden, Building: Rose, 4/B, Kallanpur, Mirpur, Dhaka-1207', 'jpg', '01755542390', NULL, 1200, 77, '2.69481E+12', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-03 05:41:32', NULL, NULL, NULL),
+(1984, 'PFISL-030', 'Md. Shahidul Islam Bhuiyan', '8', '01816726862', 'Officer', '1978-11-24', '18', '110', '20', '24', '1958', '1956', 'B+', NULL, NULL, NULL, '2', '2', '2', 'shahidul_shohag@yahoo.com', NULL, '2', '2017-02-22', '2017-08-22', NULL, 'Mohammad Sahab Uddin Bhuiyan', 'Mst. Samsun Nahar Begum', '', NULL, NULL, NULL, '01759882244', '209/1, Ulon Road, West Rampura, Dhaka-1219', '209/1, Ulon Road, West Rampura, Dhaka-1219', 'jpg', '01755542391', NULL, 1200, 78, '19787217487000011', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 04:59:05', NULL, NULL, NULL),
+(1985, 'PFISL-031', 'Md. Jahed Ali', '8', '01974187271', 'Officer', NULL, '18', '110', '20', '24', '1967', '1956', 'B Positive', NULL, NULL, NULL, '2', '2', '2', 'jahedali84@yahoo.com', NULL, '4', NULL, NULL, NULL, 'Md. Syed Ali', 'Late Monoara Begum', 'Farhana Akter', NULL, NULL, NULL, '1947894289', 'Syed Mojil, 104/A, West Bakalia Rashul Bag R/A, Chawkbazar, Ctg.', 'Syed Mojil, 104/A, West Bakalia Rashul Bag R/A, Chawkbazar, Ctg.', 'jpg', '01755542393', NULL, 1200, 82, '7330905394', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 05:00:05', NULL, NULL, NULL),
+(1986, 'PFISL-032', 'Muhammad Yeadul Islam', '12', '01675600616', 'Officer', '1986-11-01', '18', '110', '18', '24', '1958', '1956', NULL, 'MBS (Management)', NULL, '0', '2', '2', '2', 'tareks777@gmail.com', NULL, '2', '2020-12-01', '2021-06-01', NULL, 'Late Muhammad Yeadul Islam', 'Yeanur Begum', '', NULL, NULL, NULL, NULL, '15/3/C (4th Floor), West, Jatrabari, Dhaka-1204', '15/3/C (4th Floor), West, Jatrabari, Dhaka-1204', 'jpg', NULL, NULL, 1200, 195, '19862693622443348', 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-05-27 11:41:19', NULL, NULL, NULL),
+(1987, 'PFISL-033', 'Biplab Saha', '8', '1712805295', 'Jr. Officer', NULL, '18', '111', '7', '14', '1969', '1956', 'B Positive', 'Diploma Engineer', NULL, NULL, '2', '2', '2', 'bsaha1979@gmail.com', NULL, '2', NULL, NULL, NULL, 'Late Bimol Chandra Saha', 'Rochana Saha', 'Anju Saha', NULL, NULL, NULL, '1713200512', '8, Kutubkhali, Jatrabari, Dhaka.', '8, Kutubkhali, Jatrabari, Dhaka.', 'jpg', NULL, NULL, 1200, 83, '2.91628E+12', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 05:01:01', NULL, NULL, NULL),
+(1988, 'PFISL-034', 'Kashphia Alam Chowdhury', '8', '179296265', 'Jr. Officer', NULL, '18', '111', '20', '24', '1958', '1956', 'B Positive', NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, 'Monirul Alam Chowdhury', 'Nazratun Naim', 'Md. Sayed', NULL, NULL, NULL, '179296265', '33/A, Uttor Badda', '33/A, Uttor Badda', NULL, NULL, NULL, 1200, 72, '2832866186', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-24 04:20:40', NULL, NULL, NULL),
+(1989, 'PFISL-035', 'Mohammed Mijanur Rahman', '8', '01716858568', 'Jr. Officer', NULL, '18', '111', '20', '24', '1959', '1956', 'B Positive', 'M.Com. (Management)', NULL, '0', '2', '2', '2', NULL, NULL, '3', NULL, NULL, NULL, 'Mohammed Maznur Rahman', 'Begum Nurjahan', 'Nasrin Mahmooda', NULL, NULL, NULL, '8.80E+12', '360, Ahmednagar, Paikpara, Mirpur 1, Dhaka.', '360, Ahmednagar, Paikpara, Mirpur 1, Dhaka.', 'jpg', '01799997473', NULL, 1200, 446, '19792693622285206', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 05:02:18', NULL, NULL, NULL),
+(1990, 'PFISL-036', 'Mohammad Akmal Hossain', '8', 'N/A', 'Junior Officer', NULL, '18', '112', '21', '24', '1956', '1956', 'A Positive', NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, 'Late Moqbul Hossain', 'Late Ambia Hossain', 'N/A', NULL, NULL, NULL, '1726702055', '1383/8/15/3E Rampura Road,Dhaka-1219', '1383/8/15/3E Rampura Road,Dhaka-1219', NULL, NULL, NULL, 1200, 73, '2.61968E+12', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-24 04:22:23', NULL, NULL, NULL),
+(1991, 'PFISL-037', 'Mst. Shahebun Akhter', '8', '1913849749', 'Asst.Officer', '1983-10-21', '18', '113', '20', '24', '1958', '1956', 'O Positive', 'BBS (Hon\'s) in Gov. & Politics', NULL, NULL, '2', '2', '2', 'ashahebun@yahoo.com', NULL, '2', '2014-02-24', '2014-08-24', NULL, 'Md.Shahadut Hossain Talukder', 'Jebun Nahar', '', NULL, NULL, NULL, '1533725872', '83/A/2 Boromogbazar, Dhaka', '83/A/2 Boromogbazar, Dhaka', 'jpg', NULL, NULL, 1200, 90, '2847222086', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-24 04:23:03', NULL, NULL, NULL),
+(1992, 'PFISL-038', 'Rumana', '8', '01791805341', 'Asst. Officer', '23/11/1991', '18', '114', '20', '24', '1968', '1956', 'B Positive', 'MBA', NULL, '0', '2', '2', '2', 'rumanaaktar154@gmail.com', NULL, '5', '07/07/2011', '2012-01-07', NULL, 'Shahadat Ahmed', 'Kulsum Begum', 'N/A', NULL, NULL, NULL, '01783499707', 'House # 08, Lutfar Rahman Chairman Road, Shampur, Dhaka', 'House # 08, Lutfar Rahman Chairman Road, Shampur, Dhaka', 'jpg', '01799997476', NULL, 1200, 55, '5060741476', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-06 05:11:11', NULL, NULL, NULL),
+(1993, 'PFISL-039', 'Mohammad Sakhawat Hossain Khan', '8', '1718818428', 'Asst. Officer', '1979-06-30', '18', '114', '20', '24', '1958', '1956', 'B Positive', 'BA', NULL, '0', '2', '2', '2', 'shamim19980@gmail.com', NULL, '2', '2017-09-14', '2018-03-14', NULL, 'Md. Abdus Samad', 'Shamsun Naher', 'Subrina Sharina', NULL, NULL, NULL, '1730031810', 'Dominno Viento, Flat# 6/A,934, Shahidbagh, Dhaka-1217', 'Dominno Viento, Flat# 6/A,934, Shahidbagh, Dhaka-1217', 'jpg', NULL, NULL, 1200, 63, '9321909327242', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-25 04:37:38', NULL, NULL, NULL),
+(1994, 'PFISL-040', 'Rasel Alam', '8', '01772822777', 'Asst.Oficer', '1985-01-05', '18', '115', '21', '24', '1956', '1956', 'B Positive', NULL, NULL, NULL, '2', '2', '2', 'rasel@pfislbd.com', NULL, '2', '2017-03-01', '2017-09-01', NULL, 'Late Al-Hajj Md.Lutfour Rahman', 'Mst. Nabahar Begum', 'Mst. Sabana Khatun', NULL, NULL, NULL, '1711733280', 'Vill: Palpur, Post: Dharampur, Thana: Godagari, Dst: Rajshahi.', 'Vill: Palpur, Post: Dharampur, Thana: Godagari, Dst: Rajshahi..', 'jpg', '01755542382', NULL, 1200, 79, '2389641974', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-25 11:20:46', NULL, NULL, NULL),
+(1995, 'PFISL-041', 'Rahmatun Nesa (Rumi)', '8', '1779935104', 'Front Desk Offi', NULL, '18', '116', '7', '14', '1956', '1956', 'B Positive', 'BBA', NULL, NULL, '2', '2', '2', 'rumirahman2016@gmail.com', NULL, '2', NULL, NULL, NULL, 'Md. Abdur Rob', 'Late Merina Begum', 'Md. Mominur Rahman', NULL, NULL, NULL, '1877455125', '47/48 Gha, Middle Badda, Dhaka-1212', '47/48 Gha, Middle Badda, Dhaka-1212', 'jpg', NULL, NULL, NULL, 43, '1508116132', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 05:05:14', NULL, NULL, NULL),
+(1996, 'PFISL-042', 'Kustari Jahan Kuheli', '8', '01723798997', 'Front Desk Offi', '07/05/1989', '18', '116', '20', '24', '1959', '1956', 'O+', 'B.A. (Pass)', NULL, '0', '2', '2', '2', 'kuheli25march@gmail.com', NULL, '3', '06/04/2017', '2017-12-04', NULL, 'Ehia Mandal', 'Dowlotunnesa', '', NULL, NULL, NULL, NULL, 'H # 3/1 B# E, Lalmatia, Dhaka-1207', 'Vill: Rani Bazar, Po: Gharamara, Ps: Boalia, Dist: Rajshahi', 'jpg', NULL, NULL, NULL, 81, '19898192222000017', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-02 11:15:47', NULL, NULL, NULL),
+(1997, 'PFISL-043', 'Sharmin Sultana Shimu', '8', '01737206568', 'Front Desk Offi', NULL, '18', '116', '7', '14', '1978', '1956', 'O Positive', 'BSS', NULL, '0', '2', '2', '2', 'sharminsultana568@gmail.com', NULL, '7', NULL, NULL, NULL, 'Md. Khurshed Ali', 'Azizun Nahar', 'Md. Golam Kibria', NULL, NULL, NULL, '01727072067', '6, Kushum Bag, Kaiyum Complex, Islampur, Majortila, Sylhet', '6, Kushum Bag, Kaiyum Complex, Islampur, Majortila, Sylhet', 'jpg', NULL, NULL, NULL, 95, '2378819003', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 05:06:52', NULL, NULL, NULL),
+(1998, 'PFISL-044', 'Jenifar Sultana', '8', '1911188799', 'Front Desk Offi', '18/03/1979', '18', '116', '7', '14', '1964', '1956', 'B Positive', 'BSS', NULL, NULL, '2', '2', '2', 'jenifarsultanamaya@yahoo.com', NULL, '8', '18/03/1979', NULL, NULL, 'Md. Jalil Miah', 'Nazma Banu', 'Md. Anamur Rob Ripon', NULL, NULL, NULL, '1912874347', '276/1, Monipur, Mirpur-2, Dhaka-1207', '276/1, Monipur, Mirpur-2, Dhaka-1207', 'jpg', NULL, NULL, NULL, 42, '5056660391', 0, 0, 0, 0, 1, 0, NULL, NULL, '2021-06-03 05:15:21', NULL, NULL, NULL),
+(1999, 'PFISL-045', 'Monzur Hossen', '13', '1819691047', 'Prob. Officer', '1987-01-12', '18', '117', '20', '24', '1958', '1956', 'A Positive', 'MBS (Marketing)', NULL, NULL, '2', '2', '2', 'monzu.com.bd@gmail.com', NULL, '2', '2021-01-03', '2021-07-03', NULL, 'Late Ataur Rahman', 'Late Rabeya Begum', 'Sadia Akter', NULL, NULL, NULL, '1842691047', 'GP Cha 205, (3td Floor), TB Gate, Moakhali, Dhaka', 'GP Cha 205, (3td Floor), TB Gate, Moakhali, Dhaka', 'jpg', NULL, NULL, NULL, 92, '5079852108', 0, 0, 0, 0, 1, 0, NULL, NULL, '2021-05-25 12:30:49', NULL, NULL, NULL),
+(2000, 'PFISL-046', 'Md. Matiur Rahman', '13', NULL, 'Prob. Officer', NULL, '18', '117', '21', '24', '1956', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 86, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-03-31 11:44:09', NULL, NULL, NULL),
+(2001, 'PFISL-047', 'Anisur Rahman', '8', '1710882447', 'Electrician', NULL, '18', '118', '7', '14', '1969', '1956', 'O Positive', 'Class: 8', NULL, NULL, '2', '1', '2', 'anispfisl@gmail.com', NULL, '2', NULL, NULL, NULL, 'Mr. Abdur Rakkak', 'Mrs. Sajeda Begum', 'Mrs. Amena Akhter', NULL, NULL, NULL, '1923125018', 'Jaterabari Dhaka', 'Jaterabari Dhaka', NULL, NULL, NULL, NULL, 114, '2368199077', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-06-08 05:08:58', NULL, NULL, NULL),
+(2002, 'PFISL-048', 'Naim Uddin Mahmud Bhuiyan', '8', '1825216445', 'Lift Operator', NULL, '18', '119', '7', '14', '1969', '1956', 'O Positive', 'Class: 8', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Hafiz Ahmed Bhuiyan', 'Nurul Akther', '-', NULL, NULL, NULL, '1817641343', '\"Shahida Villa\" 39 Manik Nagar, Dhaka', '\"Shahida Villa\" 39 Manik Nagar, Dhaka', NULL, NULL, NULL, NULL, 327, '3.01146E+12', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-24 04:31:24', NULL, NULL, NULL),
+(2003, 'PFISL-049', 'Md. Sidik Ali', '8', '1931102806', 'Lift Operator', NULL, '18', '119', '7', '14', '1969', '1956', 'B Positive', 'Class: 2', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Late Motaleb', 'Late Latifa Khatun', 'Mst. Amena Khatun', NULL, NULL, NULL, '1401917424', 'Sec # 10, Road # 05, House # 29, Uttara, Dhaka', 'Sec # 10, Road # 05, House # 29, Uttara, Dhaka', NULL, NULL, NULL, NULL, 123, '3.32302E+12', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-24 04:32:03', NULL, NULL, NULL),
+(2004, 'PFISL-050', 'Md. Ripon Ali', '8', '1735879452', 'B. Caretaker', NULL, '18', '120', '7', '14', '1969', '1956', 'B Positive', 'Class: 08', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Mr. Md. Omar Ali', 'Mrs. Sofia khatun', 'Mst. Riktha Khatun', NULL, NULL, NULL, '1943243283', NULL, NULL, NULL, NULL, NULL, NULL, 98, '2378461327', 1, 0, 1, 1, 1, 0, NULL, NULL, '2021-05-24 04:33:21', NULL, NULL, NULL),
+(2005, 'PFISL-051', 'Md. Motiar Rahman', '8', NULL, 'Driver', NULL, '18', '30', '7', '14', '1969', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 96, NULL, 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-24 04:33:49', NULL, NULL, NULL),
+(2006, 'PFISL-052', 'Md. Motaleb Hossain', '8', NULL, 'Driver', NULL, '18', '30', '7', '14', '1969', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 112, NULL, 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-24 04:34:19', NULL, NULL, NULL),
+(2007, 'PFISL-053', 'Md. Hasanur Rashid', '8', '01911355020', 'Office Att.', '01/01/1985', '18', '121', '7', '14', '1964', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '8', '25/09/2007', '22/07/2008', NULL, 'Mohammad Husain', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 'jpg', NULL, NULL, NULL, 101, NULL, 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-06-03 05:26:09', NULL, NULL, NULL),
+(2008, 'PFISL-054', 'Md. Shohel', '8', '01916607713', 'Office Att.', '1987-07-12', '18', '121', '7', '14', '1967', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '4', '2009-03-04', '2009-09-04', NULL, 'Md. Abdur Rashid', 'Suriya Begum', '', NULL, NULL, NULL, NULL, 'T-87-D, New Zimkhana Staff Quarter, Nitaigonj, Narayangonj Shadar, Narayangong', 'T-87-D, New Zimkhana Staff Quarter, Nitaigonj, Narayangonj Shadar, Narayangong', 'jpg', NULL, NULL, NULL, 104, NULL, 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-31 03:37:59', NULL, NULL, NULL),
+(2009, 'PFISL-055', 'Md. Mostak Ahmed', '8', '01918759592', 'Office Att.', '1980-12-31', '18', '121', '7', '14', '1969', '1969', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '6', '2009-03-04', '2009-09-04', NULL, 'Md. Toafazzal Haque', 'Mosd. Sahajan Begum', '', NULL, NULL, NULL, NULL, 'Vill: Jamira, Madhha Para, Po: Jamira, Ps: Zilla Putia, Dist: Rajshahi', 'Vill: Jamira, Madhha Para, Po: Jamira, Ps: Zilla Putia, Dist: Rajshahi', 'jpg', NULL, NULL, NULL, 105, '8118227611507', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-27 12:24:06', NULL, NULL, NULL),
+(2010, 'PFISL-056', 'Md. Abul Basar', '8', '01925258685', 'Office Att.', '1983-06-12', '18', '121', '7', '14', '1969', '1956', NULL, NULL, NULL, NULL, '2', '1', '2', NULL, NULL, '6', '2009-03-15', '2009-09-15', NULL, 'Md. Siddik Ali', 'Mst. Monoara Begum', '', NULL, NULL, NULL, NULL, 'Road: Dewanpara, Po: Shampur, Ps: Katakhali, Dist: Rajshahi', 'Road: Dewanpara, Po: Shampur, Ps: Katakhali, Dist: Rajshahi', 'jpg', NULL, NULL, NULL, 106, '8127205409598', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-31 02:25:00', NULL, NULL, NULL),
+(2011, 'PFISL-057', 'Md. Milon Mridha', '8', '1712650771', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'O Positive', 'SSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, '2009-12-12', NULL, 'Late Md. Shamsul Haque Mridha', 'Bakul Begum', 'Taslima Begum', NULL, NULL, NULL, '1746710246', 'Miajan goli, Maniknagar, Dhaka', 'Miajan goli, Maniknagar, Dhaka', NULL, NULL, NULL, NULL, 324, '1.98E+16', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-24 04:41:32', NULL, NULL, NULL),
+(2012, 'PFISL-058', 'Md. Siddiqur Rahman', '8', '1721657819', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'A Positive', 'SSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Mr. Abdul Majid Howlader', 'Shamsun Naher', 'Munni Begum', NULL, NULL, NULL, '1746305701', '334/7A, Mirpur-1,  Dhaka', '334/7A, Mirpur-1,  Dhaka', NULL, NULL, NULL, NULL, 118, '1.98779E+16', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-24 04:42:15', NULL, NULL, NULL),
+(2013, 'PFISL-059', 'Neamat Karim Bhuiyan', '8', '1727186785', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'O Positive', 'HSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Mr. Amir Hossain Bhuiyan', 'Razia Begum', 'Shahina Akhter', NULL, NULL, NULL, '1715216962', 'Block # A, 103/4, Rainkhola, Mitpur-01, Dhaka', 'Block # A, 103/4, Rainkhola, Mitpur-01, Dhaka', NULL, NULL, NULL, NULL, 110, '6887763198', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-24 04:42:41', NULL, NULL, NULL),
+(2014, 'PFISL-060', 'Md. Sajibuzzaman', '8', '1817693677', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'B Positive', 'SSC', NULL, NULL, '2', '1', '2', NULL, NULL, '2', NULL, '2010-09-03', NULL, 'Mr. Md. Mostafa Sarker', 'Mst. Shirina begum', 'Mst. Sumi Akhter', NULL, NULL, NULL, '1824502384', 'Dhalosher, demra, Dhaka', 'Dhalosher, demra, Dhaka', NULL, NULL, NULL, NULL, 111, '1.99013E+16', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-24 04:43:01', NULL, NULL, NULL),
+(2015, 'PFISL-061', 'Md. Mintu Bapari', '8', '1920911332', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'O Positive', 'SSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Late Abdul Mannan Bapari', 'Late Anowara Begum', 'Lacky Akter', NULL, NULL, NULL, '1982086417', 'Chittagong Road, Siddherjang, Narayangang', 'Chittagong Road, Siddherjang, Narayangang', NULL, NULL, NULL, NULL, 89, '2.69924E+12', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-24 04:43:31', NULL, NULL, NULL),
+(2016, 'PFISL-062', 'Seikh Ratan', '8', '01680790285', 'Office Att.', '16/07/1991', '18', '121', '7', '14', '1959', '1956', NULL, 'Class: 4 pass', NULL, NULL, '2', '1', '2', NULL, NULL, '3', NULL, NULL, NULL, 'Seikh Abu Hanif', 'Hosne Ara Begum', '', NULL, NULL, NULL, NULL, 'H # 08, R # 08, S # 06, Uttara, Dhaka', 'Vill: Rayer Mahal, Po: Gpo, Ps: Khalispur, Dist: Khulna', 'jpg', NULL, NULL, NULL, 116, NULL, 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-06-02 11:35:19', NULL, NULL, NULL),
+(2017, 'PFISL-063', 'Anowarul Hoque Rubel', '8', '01858809528', 'Office Att.', '11/07/1981', '18', '121', '7', '14', '1968', '1956', NULL, 'SSC', NULL, '0', '2', '1', '2', NULL, NULL, '5', '01/01/2015', '2015-07-01', NULL, 'Saidul haque', 'Saphali Haque Bhuiyan', '', NULL, NULL, NULL, '01858809528', '69/3, Kathalbagan Bazar, Dhanmondi, Dhaka', 'Vill: Yeapur, Po: Ghatala, Ps: Begumgang, Dist: Noakhali', 'jpg', NULL, NULL, NULL, 125, '19817510763000011', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-06-06 05:24:13', NULL, NULL, NULL),
+(2018, 'PFISL-064', 'Md. Abdul Aziz', '8', '1922789504', 'Office Att.', NULL, '18', '121', '7', '14', '1969', '1956', 'B Positive', 'SSC', NULL, NULL, '2', '1', '2', '-', NULL, '2', NULL, NULL, NULL, 'Md. Hanif Ali', 'Rajia Begum', 'Lipi Nazneen', NULL, NULL, NULL, '1771678889', '63, Dilkusha, Dhaka-1000', '63, Dilkusha, Dhaka-1000', NULL, NULL, NULL, NULL, 127, '8684365532', 1, 1, 0, 1, 1, 0, NULL, NULL, '2021-05-24 04:44:45', NULL, NULL, NULL),
+(2019, 'PFISL-065', 'Mohammad Ali', '14', NULL, 'Cleaner', NULL, '18', '122', '7', '14', '1966', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 197, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-04-11 04:31:18', NULL, NULL, NULL),
+(2020, 'PFISL-066', 'Palash Das', '14', NULL, 'Cleaner', '1893-01-01', '18', '122', '7', '14', '1967', '1978', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '4', NULL, NULL, NULL, 'Nepal Chandra das', 'Monzu Rani Das', '', NULL, NULL, NULL, NULL, 'Road: Horipur, Po: Wazadia Madrasa, Ps: Baizid, Dist: Chittagong', 'Road: Horipur, Po: Wazadia Madrasa, Ps: Baizid, Dist: Chittagong', 'jpg', NULL, NULL, NULL, 465, '1590603628512', 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-05-31 02:45:48', NULL, NULL, NULL),
+(2021, 'PFISL-067', 'Md. Abdul Malek', '14', '01918821139', 'Cleaner', '1987-04-01', '18', '122', '7', '14', '1969', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '6', '2011-07-25', '2012-01-25', NULL, 'Md. Abbas Ali', 'Mst. Sajeda Begum', '', NULL, NULL, NULL, '01937414540', 'Vill: Dawean Para, Po: Shampur, Ps: Motihar, Dist: Rajshahi', 'Vill: Dawean Para, Po: Shampur, Ps: Motihar, Dist: Rajshahi', 'jpg', NULL, NULL, NULL, 205, NULL, 1, 0, 0, 1, 1, 1, NULL, NULL, '2021-05-27 12:03:22', NULL, NULL, NULL),
+(2022, 'PFISL-068', 'Md. Saiful Islam', '14', '01711947147', 'Cleaner', '1970-11-12', '18', '122', '7', '14', '1969', '1969', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '6', NULL, NULL, NULL, 'Late Afsar Ali Sarkar', 'Mst. Gulsanara Begum', '', NULL, NULL, NULL, 'Vill: Maskata D', 'Vill: Maskata Deghi, Po: Shampur, Ps: Motihar, Dist: Rajshahi', NULL, 'jpg', NULL, NULL, NULL, 206, '8127204407369', 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-05-27 12:12:05', NULL, NULL, NULL),
+(2023, 'PFISL-069', 'Md. Ripon Nayek', '14', '01772290092', 'Cleaner', '04/03/1982', '18', '122', '7', '14', '1978', '1956', NULL, NULL, NULL, '0', '2', '2', '2', NULL, NULL, '7', NULL, NULL, NULL, 'Ajit Nayek', 'Anjana Nayek', '', NULL, NULL, NULL, '01763696560', '83/A, Bisongo, Kazitula, Sylhet-3100', 'Khan Tea Garden, Panichora, Jointapur, Sylhet', 'jpg', NULL, NULL, NULL, 252, '9115345214558', 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-06-07 03:35:43', NULL, NULL, NULL),
+(2024, 'PFISL-070', 'Md. Ruhul Amin', '14', NULL, 'Cleaner', NULL, '18', '122', '7', '14', '1968', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '5', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 131, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-04-12 02:46:20', NULL, NULL, NULL),
+(2025, 'PFISL-071', 'Md. Shafirul Islam', '14', '1705855764', 'Cleaner', '2/2/1992', '18', '122', '7', '14', '1966', '1956', 'A Positive', 'Class: 8', NULL, NULL, '2', '2', '2', 'N/A', NULL, '2', NULL, NULL, NULL, 'Mohammad Bishu Mondol', 'Mst. Helana Begum', 'Mst. Amiza Begum', NULL, NULL, NULL, '1779917506', '63, Dilkusha, Dhaka-1000', '63, Dilkusha, Dhaka-1000', NULL, NULL, NULL, NULL, 193, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-04-11 04:33:46', NULL, NULL, NULL),
+(2026, 'PFISL-072', 'Md. Shakil', '14', NULL, 'Cleaner', NULL, '18', '122', '7', '14', '1966', '1956', NULL, NULL, NULL, NULL, '2', '2', '2', NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 194, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-04-11 04:35:01', NULL, NULL, NULL),
+(2027, 'PFISL-073', 'Runa', '14', '', 'Cleaner', '', '18', '122', '7', '24', '1964', '1956', '', '', NULL, 'N/A', '2', '2', '1', '', NULL, '8', '', '', NULL, '', '', '', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, '', 1, 0, 0, 1, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(2028, 'PFISL-074', 'Md. Msaum', '14', '', 'Cleaner', '', '18', '122', '7', '24', '1964', '1956', '', '', NULL, 'N/A', '2', '2', '1', '', NULL, '8', '', '', NULL, '', '', '', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, '', 1, 0, 0, 1, 0, 1, NULL, NULL, NULL, '2021-08-04 13:10:59', NULL, NULL),
+(2029, 'PFISL-075', 'Poddada Bappi', '14', '', 'Cleaner', '', '18', '122', '7', '24', '1966', '1956', '', '', NULL, 'N/A', '2', '2', '2', '', NULL, '2', '', '', NULL, '', '', '', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, '', 1, 0, 0, 1, 1, 0, NULL, NULL, NULL, '2021-08-23 13:09:37', NULL, NULL),
+(2030, 'PFISL-076', 'Md. Sagor', '14', '1586048345', 'Cleaner', NULL, '18', '122', '7', '14', '1966', '1956', NULL, 'Class: 2', NULL, NULL, '2', '2', '2', '-', NULL, '2', NULL, NULL, NULL, 'Hamlal Das', 'Shanu Rani', '-', NULL, NULL, NULL, '1985341849', 'Rishi Para, Manik Nagar, Dhaka', 'Rishi Para, Manik Nagar, Dhaka', NULL, NULL, NULL, NULL, 198, NULL, 1, 0, 0, 1, 1, 0, NULL, NULL, '2021-04-11 04:36:53', '2021-08-24 13:07:00', NULL, NULL),
+(2031, 'PFISL-999', 'Mr.Jhon', '8', '01738298666', 'hfg5', '2021-08-24', '18', '112', '14', '21', '1955', '1955', 'A+', 'xgffdgdsfgfdsg', '1', '1', '2', '1', '2', 'jhon@gmail.com', NULL, '2', '2021-08-24', '2021-08-24', '2021-08-24', 'hfdh', 'dfssdf', NULL, '4545', NULL, NULL, '65465654', 'fdsfsdf', 'hfgdhfdhfg', 'JPG', NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 1, 0, NULL, '2021-08-24 12:21:27', NULL, NULL, NULL, NULL),
+(2032, 'fdsfa', 'Mr.Jhon', '8', 'fdsaf', 'fdssdfsd', '2021-08-24', '18', '112', '14', '21', '1955', '1955', 'A+', 'fsdsd', '1', '1', '2', '1', '2', 'jhon@gmail.com', NULL, '2', '2021-08-24', '2021-08-24', '2021-08-24', 'fsd', 'fsdfsdf', NULL, NULL, NULL, NULL, 'fsdfsd', 'fdsfsdf', 'hfgdhfdhfg', 'JPG', NULL, NULL, NULL, 0, '564665', 0, 0, 0, 1, 0, 1, NULL, '2021-08-24 12:23:37', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -35128,10 +35149,10 @@ INSERT INTO `tbl_employee` (`emp_id`, `emp_empid`, `emp_name`, `emp_type`, `emp_
 CREATE TABLE `tbl_employee_types` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `desc` text COLLATE utf8_unicode_ci,
-  `status` int(1) DEFAULT '1',
+  `desc` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` int(1) DEFAULT 1,
   `created_by` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -35160,7 +35181,7 @@ CREATE TABLE `tbl_forgetpassword` (
   `submitted_at` datetime DEFAULT NULL,
   `solved_by` int(11) DEFAULT NULL,
   `solved_at` datetime DEFAULT NULL,
-  `fp_status` int(1) DEFAULT '0'
+  `fp_status` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -35173,8 +35194,8 @@ CREATE TABLE `tbl_goals` (
   `id` int(8) NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `year` int(5) DEFAULT NULL,
-  `status` int(1) DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(1) DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -35197,7 +35218,7 @@ CREATE TABLE `tbl_hod` (
   `hod_depart_id` int(8) DEFAULT NULL,
   `hod_empid` int(8) DEFAULT NULL,
   `hod_superior` int(8) DEFAULT NULL,
-  `hod_note` text COLLATE utf8_unicode_ci
+  `hod_note` text COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -35226,8 +35247,8 @@ INSERT INTO `tbl_hod` (`hod_id`, `hod_depart_id`, `hod_empid`, `hod_superior`, `
 CREATE TABLE `tbl_holiday` (
   `holiday_id` int(8) NOT NULL,
   `holiday_date` date DEFAULT NULL,
-  `holiday_description` text COLLATE utf8_unicode_ci,
-  `holiday_status` int(1) DEFAULT '1'
+  `holiday_description` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `holiday_status` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -35695,8 +35716,8 @@ INSERT INTO `tbl_insurance` (`emp_id`, `self_member_id`, `effective_date`, `spou
 (2028, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2029, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2030, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-11 16:36:53'),
-(2031, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-03 15:41:49'),
-(2032, '11111111111111', '2021-06-01', NULL, 'YYYYYYYY', '2021-05-31', NULL, NULL, NULL, 'YYYYYYYY', '2021-05-31', NULL, NULL, NULL, 'YYYYYYYY', '2021-05-30', NULL, NULL, '2021-06-02 15:41:34'),
+(2031, 'fsdsdf', '2021-08-24', NULL, 'fsdf', '2021-08-24', NULL, NULL, NULL, 'gfdgdf', '2021-08-24', NULL, NULL, NULL, 'gdfsgdfg', '2021-08-24', NULL, NULL, '2021-08-24 12:21:27'),
+(2032, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-24 12:23:37'),
 (2033, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-03 18:08:32'),
 (2034, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-06-05 14:58:56');
 
@@ -35717,8 +35738,8 @@ CREATE TABLE `tbl_job` (
   `end_date` date DEFAULT NULL,
   `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -35738,7 +35759,7 @@ INSERT INTO `tbl_job` (`id`, `project_id`, `job_title`, `emp_id`, `job_weight`, 
 CREATE TABLE `tbl_joblocation` (
   `jl_id` int(8) NOT NULL,
   `jl_name` varchar(255) NOT NULL,
-  `jl_status` int(1) NOT NULL DEFAULT '1'
+  `jl_status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -35765,7 +35786,7 @@ CREATE TABLE `tbl_jobnote` (
   `emp_id` int(8) DEFAULT NULL,
   `job_id` int(8) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
-  `message` text COLLATE utf8_unicode_ci,
+  `message` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `seen` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -35790,8 +35811,8 @@ CREATE TABLE `tbl_jobreviewer` (
   `id` int(8) NOT NULL,
   `job_id` int(8) DEFAULT NULL,
   `emp_id` int(8) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -35814,8 +35835,8 @@ CREATE TABLE `tbl_jobskill` (
   `id` int(8) NOT NULL,
   `job_id` int(8) DEFAULT NULL,
   `skill_id` int(8) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -35843,16 +35864,23 @@ CREATE TABLE `tbl_leaveapplication` (
   `leave_start_date` datetime DEFAULT NULL,
   `leave_end_date` datetime DEFAULT NULL,
   `leave_day` double DEFAULT NULL,
-  `leave_reason` text COLLATE utf8_unicode_ci,
+  `leave_reason` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `leave_replacement_date` date DEFAULT NULL,
   `leave_replacement` int(8) DEFAULT NULL,
   `leave_docext` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `leave_requested_date` date DEFAULT NULL,
-  `leave_status` int(1) DEFAULT '0',
+  `leave_status` int(1) DEFAULT 0,
   `leave_approved_userid` int(8) DEFAULT NULL,
   `leave_approved_date` date DEFAULT NULL,
-  `leave_note` text COLLATE utf8_unicode_ci
+  `leave_note` text COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tbl_leaveapplication`
+--
+
+INSERT INTO `tbl_leaveapplication` (`leave_id`, `leave_empid`, `leave_typeid`, `leave_start_date`, `leave_end_date`, `leave_day`, `leave_reason`, `leave_replacement_date`, `leave_replacement`, `leave_docext`, `leave_requested_date`, `leave_status`, `leave_approved_userid`, `leave_approved_date`, `leave_note`) VALUES
+(1, 1964, 1, '2021-08-24 00:00:00', '2021-08-25 00:00:00', 2, 'sick', NULL, NULL, NULL, '2021-08-24', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -35864,7 +35892,7 @@ CREATE TABLE `tbl_leavetype` (
   `li_id` int(8) NOT NULL,
   `li_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `li_qoutaday` int(8) DEFAULT NULL,
-  `li_status` int(1) DEFAULT '1'
+  `li_status` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -35892,14 +35920,14 @@ CREATE TABLE `tbl_loanapprove` (
   `loan_id` int(8) DEFAULT NULL,
   `month` double DEFAULT NULL,
   `year` int(4) DEFAULT NULL,
-  `flag` int(3) DEFAULT '0',
-  `after_installment` tinyint(4) NOT NULL DEFAULT '0',
-  `paid_amount` double NOT NULL DEFAULT '0',
-  `monthly_installment` double NOT NULL DEFAULT '0',
+  `flag` int(3) DEFAULT 0,
+  `after_installment` tinyint(4) NOT NULL DEFAULT 0,
+  `paid_amount` double NOT NULL DEFAULT 0,
+  `monthly_installment` double NOT NULL DEFAULT 0,
   `approved_by` int(8) DEFAULT NULL,
   `received_by` int(8) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -35920,13 +35948,13 @@ INSERT INTO `tbl_loanapprove` (`id`, `loan_id`, `month`, `year`, `flag`, `after_
 CREATE TABLE `tbl_loans` (
   `id` int(8) NOT NULL,
   `emp_id` int(8) DEFAULT NULL,
-  `purpose` text COLLATE utf8_unicode_ci,
+  `purpose` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `month` int(2) DEFAULT NULL,
   `year` int(4) DEFAULT NULL,
-  `flag` int(3) DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `flag` int(3) DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -36228,7 +36256,7 @@ CREATE TABLE `tbl_nightshiftallowance` (
   `allowance` double DEFAULT NULL,
   `execution_date` date DEFAULT NULL,
   `assigned_by` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -36260,14 +36288,14 @@ INSERT INTO `tbl_nightshiftallowance` (`id`, `emp_type`, `allowance`, `execution
 
 CREATE TABLE `tbl_notice` (
   `notice_id` int(8) NOT NULL,
-  `notice_title` text COLLATE utf8_unicode_ci,
-  `notice_desc` text COLLATE utf8_unicode_ci,
-  `notice_department` text COLLATE utf8_unicode_ci,
-  `notice_employee` text COLLATE utf8_unicode_ci,
+  `notice_title` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `notice_desc` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `notice_department` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `notice_employee` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `notice_added_by` int(8) DEFAULT NULL,
   `notice_publish_from` date DEFAULT NULL,
   `notice_publish_to` date DEFAULT NULL,
-  `notice_status` int(1) DEFAULT '1',
+  `notice_status` int(1) DEFAULT 1,
   `notice_created_at` datetime DEFAULT NULL,
   `notice_updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -36295,9 +36323,9 @@ CREATE TABLE `tbl_osdattendance` (
   `osd_starttime` time DEFAULT NULL,
   `osd_endtime` time DEFAULT NULL,
   `osd_duration` time DEFAULT NULL,
-  `osd_location` text COLLATE utf8_unicode_ci,
-  `osd_description` text COLLATE utf8_unicode_ci,
-  `osd_status` int(1) DEFAULT '0',
+  `osd_location` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `osd_description` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `osd_status` int(1) DEFAULT 0,
   `osd_approved_by` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -36309,7 +36337,7 @@ INSERT INTO `tbl_osdattendance` (`osd_id`, `osd_uniquecode`, `osd_done_by`, `osd
 (1, 'OSD2019-0000001', 116, '2019-03-31', '10:00:00', '11:00:00', '01:00:00', 'Dhaka', 'meeting', 0, NULL),
 (2, 'OSD2020-0000001', 1574, '2020-09-22', '14:08:00', '17:08:00', '03:00:00', 'Savar', 'Factory visit', 0, NULL),
 (3, 'OSD2020-0000002', 1574, '2020-09-22', '12:17:00', '14:17:00', '02:00:00', 'Narayangong', 'Factory visit', 0, NULL),
-(4, 'OSD2021-0000001', 1962, '2021-04-12', '11:18:00', '13:18:00', '02:00:00', 'test', NULL, 1, 116),
+(4, 'OSD2021-0000001', 1962, '2021-04-12', '11:18:00', '13:18:00', '02:00:00', 'test', NULL, 1, NULL),
 (5, 'OSD2021-0000002', 2017, '2021-04-15', '09:00:00', '10:00:00', '01:00:00', 'Rampura', 'Support', 0, NULL);
 
 -- --------------------------------------------------------
@@ -36326,11 +36354,11 @@ CREATE TABLE `tbl_otapplication` (
   `otapp_fromtime` time DEFAULT NULL,
   `otapp_totime` time DEFAULT NULL,
   `otapp_totalhrs` double NOT NULL,
-  `otapp_status` int(1) NOT NULL DEFAULT '0' COMMENT '0 for pending, 1 for approved, 2 for denied',
+  `otapp_status` int(1) NOT NULL DEFAULT 0 COMMENT '0 for pending, 1 for approved, 2 for denied',
   `otapp_appdt` datetime NOT NULL,
   `otapp_appuserid` int(8) NOT NULL,
   `otapp_notes` text NOT NULL,
-  `otapp_type` int(1) DEFAULT '0' COMMENT '1 for assigned, 0 for self requested',
+  `otapp_type` int(1) DEFAULT 0 COMMENT '1 for assigned, 0 for self requested',
   `otapp_assignedby` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -37335,7 +37363,7 @@ CREATE TABLE `tbl_payment` (
   `pro_id` int(8) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `given_by` int(8) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -37361,9 +37389,9 @@ CREATE TABLE `tbl_payroll` (
   `head_date_of_execution` date DEFAULT NULL,
   `head_id` int(8) DEFAULT NULL,
   `amount` double DEFAULT NULL,
-  `bankcash_status` int(255) NOT NULL DEFAULT '1' COMMENT '1=bank|2=cash',
-  `type` int(1) DEFAULT '1' COMMENT '0 for accrual, 1 for payment',
-  `status` int(1) DEFAULT '0' COMMENT '0 for hold, 1 for paid',
+  `bankcash_status` int(255) NOT NULL DEFAULT 1 COMMENT '1=bank|2=cash',
+  `type` int(1) DEFAULT 1 COMMENT '0 for accrual, 1 for payment',
+  `status` int(1) DEFAULT 0 COMMENT '0 for hold, 1 for paid',
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -37875,7 +37903,21 @@ INSERT INTO `tbl_payroll` (`id`, `emp_id`, `head_date_of_execution`, `head_id`, 
 (2119, 2034, NULL, 4, 0, 0, 1, 0, NULL, NULL),
 (2120, 2034, NULL, 5, 0, 0, 1, 0, NULL, NULL),
 (2121, 2034, NULL, 6, 0, 0, 1, 0, NULL, NULL),
-(2124, 2034, NULL, 9, 0, 0, 1, 0, NULL, NULL);
+(2124, 2034, NULL, 9, 0, 0, 1, 0, NULL, NULL),
+(2125, 2031, '2021-08-24', 1, 0, 1, 1, 0, NULL, NULL),
+(2126, 2031, '2021-08-24', 2, 0, 1, 1, 0, NULL, NULL),
+(2127, 2031, '2021-08-24', 3, 0, 1, 1, 0, NULL, NULL),
+(2128, 2031, '2021-08-24', 4, 0, 1, 1, 0, NULL, NULL),
+(2129, 2031, '2021-08-24', 5, 0, 1, 1, 0, NULL, NULL),
+(2130, 2031, '2021-08-24', 6, 0, 1, 1, 0, NULL, NULL),
+(2131, 2031, '2021-08-24', 9, 0, 1, 1, 0, NULL, NULL),
+(2132, 2032, '2021-08-24', 1, 0, 1, 1, 0, NULL, NULL),
+(2133, 2032, '2021-08-24', 2, 0, 1, 1, 0, NULL, NULL),
+(2134, 2032, '2021-08-24', 3, 0, 1, 1, 0, NULL, NULL),
+(2135, 2032, '2021-08-24', 4, 0, 1, 1, 0, NULL, NULL),
+(2136, 2032, '2021-08-24', 5, 0, 1, 1, 0, NULL, NULL),
+(2137, 2032, '2021-08-24', 6, 0, 1, 1, 0, NULL, NULL),
+(2138, 2032, '2021-08-24', 9, 0, 1, 1, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -37904,10 +37946,10 @@ CREATE TABLE `tbl_payrollsummery` (
   `addition` double NOT NULL,
   `deduction` double NOT NULL,
   `salary` double DEFAULT NULL,
-  `type` int(2) NOT NULL DEFAULT '30',
+  `type` int(2) NOT NULL DEFAULT 30,
   `generated_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `updated_count` double DEFAULT '0',
+  `updated_count` double DEFAULT 0,
   `generated_by` int(8) DEFAULT NULL,
   `updated_by` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -38387,7 +38429,7 @@ CREATE TABLE `tbl_piece` (
   `pi_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pi_styleid` int(8) DEFAULT NULL,
   `pi_price_dz` double DEFAULT NULL,
-  `pi_status` int(1) DEFAULT '1',
+  `pi_status` int(1) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -38409,7 +38451,7 @@ INSERT INTO `tbl_piece` (`pi_id`, `pi_code`, `pi_name`, `pi_styleid`, `pi_price_
 CREATE TABLE `tbl_priority` (
   `pr_id` int(8) NOT NULL,
   `pr_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pr_status` int(1) DEFAULT '1'
+  `pr_status` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -38468,108 +38510,89 @@ INSERT INTO `tbl_priorityrole` (`prrole_id`, `prrole_prid`, `prrole_menuid`, `pr
 (1552, 4, 51, 128),
 (1553, 4, 51, 147),
 (1554, 4, 51, 130),
-(3636, 5, 48, 135),
-(3637, 5, 48, 144),
-(3638, 5, 48, 82),
-(3639, 5, 49, 136),
-(3640, 5, 49, 101),
-(3641, 5, 49, 103),
-(3642, 5, 49, 114),
-(3643, 5, 49, 145),
-(3644, 5, 49, 90),
-(3645, 5, 49, 113),
-(3646, 5, 49, 162),
-(3647, 5, 49, 163),
-(3648, 5, 50, 137),
-(3649, 5, 50, 88),
-(3650, 5, 50, 89),
-(3651, 5, 50, 110),
-(3652, 5, 51, 138),
-(3653, 5, 51, 166),
-(3654, 5, 51, 146),
-(3655, 5, 51, 128),
-(3805, 1, 48, 135),
-(3806, 1, 48, 83),
-(3807, 1, 48, 93),
-(3808, 1, 48, 109),
-(3809, 1, 48, 144),
-(3810, 1, 48, 176),
-(3811, 1, 48, 184),
-(3812, 1, 48, 82),
-(3813, 1, 48, 100),
-(3814, 1, 48, 94),
-(3815, 1, 48, 131),
-(3816, 1, 48, 133),
-(3817, 1, 48, 134),
-(3818, 1, 49, 136),
-(3819, 1, 49, 101),
-(3820, 1, 49, 175),
-(3821, 1, 49, 102),
-(3822, 1, 49, 103),
-(3823, 1, 49, 114),
-(3824, 1, 49, 145),
-(3825, 1, 49, 90),
-(3826, 1, 49, 91),
-(3827, 1, 49, 112),
-(3828, 1, 49, 113),
-(3829, 1, 50, 137),
-(3830, 1, 50, 88),
-(3831, 1, 50, 89),
-(3832, 1, 50, 110),
-(3833, 1, 51, 138),
-(3834, 1, 51, 165),
-(3835, 1, 51, 169),
-(3836, 1, 51, 166),
-(3837, 1, 51, 146),
-(3838, 1, 51, 170),
-(3839, 1, 51, 182),
-(3840, 1, 51, 128),
-(3841, 1, 51, 171),
-(3842, 1, 51, 183),
-(3843, 1, 51, 147),
-(3844, 1, 51, 130),
-(3845, 1, 51, 173),
-(3846, 1, 51, 172),
-(3847, 1, 51, 174),
-(3848, 1, 51, 177),
-(3849, 1, 51, 178),
-(3850, 1, 51, 179),
-(3851, 1, 52, 140),
-(3852, 1, 52, 123),
-(3853, 1, 52, 124),
-(3854, 1, 52, 122),
-(3855, 1, 53, 154),
-(3856, 1, 53, 156),
-(3857, 1, 53, 157),
-(3858, 1, 53, 158),
-(3859, 1, 53, 161),
-(3860, 1, 53, 155),
-(3861, 1, 53, 159),
-(3862, 1, 53, 160),
-(3863, 1, 42, 141),
-(3864, 1, 42, 105),
-(3865, 1, 40, 142),
-(3866, 1, 40, 85),
-(3867, 1, 40, 86),
-(3868, 1, 40, 87),
-(3869, 1, 40, 92),
-(3870, 1, 40, 168),
-(3871, 1, 40, 153),
-(3872, 1, 40, 84),
-(3873, 1, 40, 96),
-(3874, 1, 40, 98),
-(3875, 1, 40, 148),
-(3876, 1, 40, 106),
-(3877, 1, 40, 149),
-(3878, 1, 40, 120),
-(3879, 1, 40, 150),
-(3880, 1, 40, 126),
-(3881, 1, 40, 151),
-(3882, 1, 40, 117),
-(3883, 1, 40, 152),
-(3884, 1, 40, 127),
-(3885, 1, 40, 118),
-(3886, 1, 40, 99);
+(4168, 5, 48, 135),
+(4169, 5, 48, 144),
+(4170, 5, 48, 82),
+(4171, 5, 49, 136),
+(4172, 5, 49, 101),
+(4173, 5, 49, 103),
+(4174, 5, 49, 114),
+(4175, 5, 49, 145),
+(4176, 5, 49, 90),
+(4177, 5, 49, 113),
+(4178, 5, 49, 162),
+(4179, 5, 49, 163),
+(4180, 5, 51, 138),
+(4181, 5, 51, 166),
+(4182, 5, 51, 146),
+(4183, 5, 51, 128),
+(4184, 1, 48, 135),
+(4185, 1, 48, 83),
+(4186, 1, 48, 93),
+(4187, 1, 48, 109),
+(4188, 1, 48, 176),
+(4189, 1, 48, 144),
+(4190, 1, 48, 82),
+(4191, 1, 48, 184),
+(4192, 1, 48, 100),
+(4193, 1, 48, 94),
+(4194, 1, 48, 131),
+(4195, 1, 48, 133),
+(4196, 1, 48, 134),
+(4197, 1, 49, 136),
+(4198, 1, 49, 101),
+(4199, 1, 49, 102),
+(4200, 1, 49, 175),
+(4201, 1, 49, 103),
+(4202, 1, 49, 114),
+(4203, 1, 49, 145),
+(4204, 1, 49, 90),
+(4205, 1, 49, 91),
+(4206, 1, 49, 112),
+(4207, 1, 49, 113),
+(4208, 1, 51, 138),
+(4209, 1, 51, 165),
+(4210, 1, 51, 166),
+(4211, 1, 51, 169),
+(4212, 1, 51, 146),
+(4213, 1, 51, 182),
+(4214, 1, 51, 170),
+(4215, 1, 51, 183),
+(4216, 1, 51, 171),
+(4217, 1, 51, 128),
+(4218, 1, 51, 147),
+(4219, 1, 51, 130),
+(4220, 1, 51, 173),
+(4221, 1, 51, 172),
+(4222, 1, 51, 174),
+(4223, 1, 51, 177),
+(4224, 1, 51, 178),
+(4225, 1, 51, 179),
+(4226, 1, 51, 180),
+(4227, 1, 51, 181),
+(4228, 1, 42, 141),
+(4229, 1, 42, 105),
+(4230, 1, 40, 142),
+(4231, 1, 40, 85),
+(4232, 1, 40, 86),
+(4233, 1, 40, 87),
+(4234, 1, 40, 168),
+(4235, 1, 40, 92),
+(4236, 1, 40, 153),
+(4237, 1, 40, 84),
+(4238, 1, 40, 96),
+(4239, 1, 40, 148),
+(4240, 1, 40, 98),
+(4241, 1, 40, 106),
+(4242, 1, 40, 149),
+(4243, 1, 40, 120),
+(4244, 1, 40, 150),
+(4245, 1, 40, 126),
+(4246, 1, 40, 151),
+(4247, 1, 40, 117),
+(4248, 1, 40, 152),
+(4249, 1, 40, 127),
+(4250, 1, 40, 118);
 
 -- --------------------------------------------------------
 
@@ -38580,10 +38603,10 @@ INSERT INTO `tbl_priorityrole` (`prrole_id`, `prrole_prid`, `prrole_menuid`, `pr
 CREATE TABLE `tbl_probationperiodnotifications` (
   `id` int(11) NOT NULL,
   `emp_id` int(11) DEFAULT NULL,
-  `text` text COLLATE utf8_unicode_ci,
+  `text` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `approved_by` int(11) DEFAULT NULL,
-  `status` int(1) DEFAULT '0' COMMENT '0 for pending , 1 for read',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` int(1) DEFAULT 0 COMMENT '0 for pending , 1 for read',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -38601,8 +38624,8 @@ CREATE TABLE `tbl_production` (
   `pro_totalcost` double DEFAULT NULL,
   `pro_startdate` date DEFAULT NULL,
   `pro_enddate` date DEFAULT NULL,
-  `pro_status` int(1) DEFAULT '0' COMMENT '0 for pending, 1 for done, 2 for paid',
-  `pro_completation_notes` text COLLATE utf8_unicode_ci,
+  `pro_status` int(1) DEFAULT 0 COMMENT '0 for pending, 1 for done, 2 for paid',
+  `pro_completation_notes` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -38639,13 +38662,13 @@ INSERT INTO `tbl_project` (`id`, `goal_id`, `project_name`, `project_amount`, `i
 
 CREATE TABLE `tbl_projectdetails` (
   `project_id` int(8) NOT NULL,
-  `project_name` text COLLATE utf8_unicode_ci,
-  `project_company` text COLLATE utf8_unicode_ci,
-  `project_details` text COLLATE utf8_unicode_ci,
-  `project_address` text COLLATE utf8_unicode_ci,
-  `project_contact` text COLLATE utf8_unicode_ci,
-  `project_logo` text COLLATE utf8_unicode_ci,
-  `project_icon` text COLLATE utf8_unicode_ci
+  `project_name` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `project_company` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `project_details` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `project_address` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `project_contact` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `project_logo` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `project_icon` text COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -38663,11 +38686,11 @@ INSERT INTO `tbl_projectdetails` (`project_id`, `project_name`, `project_company
 
 CREATE TABLE `tbl_providentfundsetup` (
   `id` int(8) NOT NULL,
-  `provident_fund` int(1) DEFAULT '1',
+  `provident_fund` int(1) DEFAULT 1,
   `employee_percentage` double DEFAULT NULL,
   `company_percentage` double DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -38690,8 +38713,8 @@ CREATE TABLE `tbl_provident_fund` (
   `month` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `employee_amount` double DEFAULT NULL,
   `company_amount` double DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -39104,14 +39127,14 @@ CREATE TABLE `tbl_provident_refund` (
   `emp_id` int(8) DEFAULT NULL,
   `apply_date` date DEFAULT NULL,
   `approved_date` date DEFAULT NULL,
-  `purpose` text COLLATE utf8_unicode_ci,
+  `purpose` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `requested_amount` double DEFAULT NULL,
   `approved_amount` double DEFAULT NULL,
-  `status` int(1) DEFAULT '0',
-  `reason_of_rejection` text COLLATE utf8_unicode_ci,
+  `status` int(1) DEFAULT 0,
+  `reason_of_rejection` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `coopon_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -39146,10 +39169,10 @@ CREATE TABLE `tbl_salary` (
   `tin_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `grade` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `bank_account` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `bu_code` text COLLATE utf8_unicode_ci,
-  `category` int(1) DEFAULT '1' COMMENT '1 for direct, 2 for indirect',
+  `bu_code` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category` int(1) DEFAULT 1 COMMENT '1 for direct, 2 for indirect',
   `ten_steps` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `gender` int(1) DEFAULT '1' COMMENT '1 for male, 2 for female',
+  `gender` int(1) DEFAULT 1 COMMENT '1 for male, 2 for female',
   `last_updated_at` datetime DEFAULT NULL,
   `last_updated_by` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -39563,8 +39586,8 @@ INSERT INTO `tbl_salary` (`emp_id`, `gross`, `tin_no`, `grade`, `bank_account`, 
 (2028, 0, '', NULL, NULL, NULL, 1, NULL, 1, NULL, NULL),
 (2029, 0, '', NULL, NULL, NULL, 1, NULL, 1, NULL, NULL),
 (2030, 0, NULL, NULL, NULL, NULL, 1, NULL, 1, '2021-04-11 16:36:53', 116),
-(2031, 0, NULL, NULL, NULL, NULL, 1, NULL, 1, '2021-06-03 15:41:49', 116),
-(2032, 0, '11111', 'A', 'YYYYYYYY', 'YYYYYYYY', 1, NULL, 1, '2021-06-02 15:41:34', 116),
+(2031, 0, 'gdfsgdfgsdg', 'gdfgd', 'gdfgd', 'gdfgdfg', 1, 'hfdhfd', 1, '2021-08-24 12:21:27', 116),
+(2032, 0, NULL, NULL, NULL, NULL, 1, NULL, 1, '2021-08-24 12:23:37', 116),
 (2033, 0, NULL, NULL, NULL, NULL, 1, NULL, 1, '2021-06-03 18:08:32', 116),
 (2034, 0, NULL, NULL, NULL, NULL, 1, NULL, 1, '2021-06-05 14:58:56', 116);
 
@@ -39577,13 +39600,13 @@ INSERT INTO `tbl_salary` (`emp_id`, `gross`, `tin_no`, `grade`, `bank_account`, 
 CREATE TABLE `tbl_salaryhead` (
   `head_id` int(8) NOT NULL,
   `head_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `head_type` int(1) DEFAULT '1' COMMENT '1 for addition, 0 for deduction',
-  `other_head_type` tinyint(4) NOT NULL DEFAULT '0',
+  `head_type` int(1) DEFAULT 1 COMMENT '1 for addition, 0 for deduction',
+  `other_head_type` tinyint(4) NOT NULL DEFAULT 0,
   `head_percentage` double DEFAULT NULL,
-  `head_taxable` int(1) DEFAULT '0' COMMENT '1 for taxable, 0 for non-taxable',
-  `head_taxexempt` double NOT NULL DEFAULT '0',
-  `head_note` text COLLATE utf8_unicode_ci,
-  `head_status` int(1) DEFAULT '1',
+  `head_taxable` int(1) DEFAULT 0 COMMENT '1 for taxable, 0 for non-taxable',
+  `head_taxexempt` double NOT NULL DEFAULT 0,
+  `head_note` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `head_status` int(1) DEFAULT 1,
   `head_updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -39612,10 +39635,10 @@ CREATE TABLE `tbl_salaryheadextends` (
   `head_unit_for_absent` double DEFAULT NULL,
   `head_percentage_for_basic` double DEFAULT NULL,
   `head_percentage_for_total` double DEFAULT NULL,
-  `head_percentage_status` int(1) DEFAULT '1' COMMENT '1 for basic, 2 for total',
-  `head_note` text COLLATE utf8_unicode_ci,
-  `head_type` int(1) DEFAULT '0' COMMENT '1 for addition, 0 for deduction',
-  `head_status` int(1) DEFAULT '1' COMMENT '1 for active, 0 for inactive',
+  `head_percentage_status` int(1) DEFAULT 1 COMMENT '1 for basic, 2 for total',
+  `head_note` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `head_type` int(1) DEFAULT 0 COMMENT '1 for addition, 0 for deduction',
+  `head_status` int(1) DEFAULT 1 COMMENT '1 for active, 0 for inactive',
   `head_last_updated_at` datetime DEFAULT NULL,
   `head_last_updated_by` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -39637,8 +39660,8 @@ INSERT INTO `tbl_salaryheadextends` (`head_id`, `head_name`, `head_unit_for_abse
 
 CREATE TABLE `tbl_setup` (
   `id` int(8) NOT NULL,
-  `developer_mode` int(1) DEFAULT '0' COMMENT '1 for on, 0 for off',
-  `attendance_type` int(1) DEFAULT '1' COMMENT '1 for device wise. 0 for first in last out',
+  `developer_mode` int(1) DEFAULT 0 COMMENT '1 for on, 0 for off',
+  `attendance_type` int(1) DEFAULT 1 COMMENT '1 for device wise. 0 for first in last out',
   `grace_time` int(255) DEFAULT NULL,
   `absent_time` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `b_bonus` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -39664,7 +39687,7 @@ CREATE TABLE `tbl_shift` (
   `shift_type` int(1) NOT NULL,
   `shift_stime` time NOT NULL,
   `shift_etime` time NOT NULL,
-  `shift_status` int(1) NOT NULL DEFAULT '1'
+  `shift_status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -39691,8 +39714,8 @@ CREATE TABLE `tbl_skillappraisal` (
   `achieve` double DEFAULT NULL,
   `incentive_target_amount` double DEFAULT NULL,
   `incentive_achieve_amount` double DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -39716,7 +39739,7 @@ INSERT INTO `tbl_skillappraisal` (`id`, `job_id`, `skill_id`, `skill_weight`, `t
 CREATE TABLE `tbl_skills` (
   `id` int(8) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` int(1) DEFAULT '1'
+  `status` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -39740,8 +39763,8 @@ INSERT INTO `tbl_skills` (`id`, `name`, `status`) VALUES
 CREATE TABLE `tbl_style` (
   `sty_id` int(8) NOT NULL,
   `sty_code` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `sty_desc` text COLLATE utf8_unicode_ci,
-  `sty_status` int(1) DEFAULT '1',
+  `sty_desc` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sty_status` int(1) DEFAULT 1,
   `sty_empid` int(8) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -39768,7 +39791,7 @@ CREATE TABLE `tbl_subdepartment` (
   `sdepart_id` int(8) NOT NULL,
   `sdepart_departid` varchar(255) NOT NULL,
   `sdepart_name` varchar(255) NOT NULL,
-  `sdepart_status` int(1) NOT NULL DEFAULT '1'
+  `sdepart_status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -39809,11 +39832,11 @@ INSERT INTO `tbl_subdepartment` (`sdepart_id`, `sdepart_departid`, `sdepart_name
 
 CREATE TABLE `tbl_switchincentive` (
   `id` int(8) NOT NULL,
-  `incentive` int(1) DEFAULT '1',
+  `incentive` int(1) DEFAULT 1,
   `percentage` double DEFAULT NULL,
   `updated_by` int(8) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -39832,11 +39855,11 @@ INSERT INTO `tbl_switchincentive` (`id`, `incentive`, `percentage`, `updated_by`
 CREATE TABLE `tbl_sysuser` (
   `id` int(10) UNSIGNED NOT NULL,
   `suser_empid` int(8) DEFAULT NULL,
-  `suser_emptype` int(1) DEFAULT '1',
+  `suser_emptype` int(1) DEFAULT 1,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `suser_status` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
-  `ststus_condition` int(1) NOT NULL DEFAULT '0' COMMENT '1=resign|2=suspend|3=reject',
+  `ststus_condition` int(1) NOT NULL DEFAULT 0 COMMENT '1=resign|2=suspend|3=reject',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `suser_last_login` datetime DEFAULT NULL,
   `suser_level` int(1) DEFAULT NULL
@@ -39847,20 +39870,20 @@ CREATE TABLE `tbl_sysuser` (
 --
 
 INSERT INTO `tbl_sysuser` (`id`, `suser_empid`, `suser_emptype`, `email`, `password`, `suser_status`, `ststus_condition`, `remember_token`, `suser_last_login`, `suser_level`) VALUES
-(1000, 116, 1, 'sales@acquaintbd.com', '$2y$10$kmq1EBvCHxPv0DomYZcmBeE6e.BWkYKA3nPeacIKadw9CaDydpCiG', '1', 0, '', '2021-08-16 10:13:09', 1),
+(1000, 116, 1, 'sales@acquaintbd.com', '$2y$10$kmq1EBvCHxPv0DomYZcmBeE6e.BWkYKA3nPeacIKadw9CaDydpCiG', '1', 0, '', '2021-09-07 11:45:56', 1),
 (1772, 116, 1, 'admin@acquaintbd.com', '$2y$10$DWW8SD7OztVljW0sRGR.1emM2R1EVyDGVjmgwFjzceMbbxy/NUKe.', '1', 0, '', '2020-10-24 08:37:42', 1),
 (3230, 1587, 1, 'EE-0071', '$2y$10$Fzye65FqeBEFR97CcVyuveMDuNZX7JEiEPlWcy.CRsJvOt2TxGK0.', '1', 0, NULL, '2021-03-24 04:25:19', 5),
 (3385, 1742, 0, 'SG-0033', '$2y$10$9ZGzKUJUc9URGz2.THj16.xhpDElfh7rqIE7FVIM4/85siTYFQjfW', '1', 0, NULL, '2021-03-11 11:08:50', 5),
 (3386, 1955, 1, 'PFISL-001', '$2y$10$Ve.a0blbPArDsScXPD4c/emK/IFju75ZnLJIGqj6yu9hhfgB5J0Ky', '1', 0, NULL, NULL, 4),
-(3387, 1956, 1, 'PFISL-002', '$2y$10$A8Fm9U8e2R7fEfy11Ms5Vu9v7eX8f//T8t2/8XsduOb8NhDJh5.sq', '1', 0, NULL, '2021-04-11 12:48:19', 4),
+(3387, 1956, 1, 'PFISL-002', '$2y$10$/FV9Gx7EA3DcMpNcswTVFuZgcKO/VsRtkI7dEWs4aPgpyE94lK7yO', '1', 0, NULL, '2021-04-11 12:48:19', 4),
 (3388, 1957, 1, 'PFISL-003', '$2y$10$BBs97zurB6EpZgaG63vi2ujcjXzY4D1v80Da2MMHXcQp6x3adbnaO', '1', 0, NULL, NULL, 5),
-(3389, 1958, 1, 'PFISL-004', '$2y$10$v3kiVLC5HWyFdr7dIWDi.eZQSb6ZY2INdEOAdowzz6pxKUfEKR.GS', '1', 0, NULL, '2021-03-24 03:40:38', 4),
+(3389, 1958, 0, 'PFISL-004', '$2y$10$v3kiVLC5HWyFdr7dIWDi.eZQSb6ZY2INdEOAdowzz6pxKUfEKR.GS', '1', 0, NULL, '2021-03-24 03:40:38', 4),
 (3390, 1959, 1, 'PFISL-005', '$2y$10$JBOvDmcHgW1.1JeaK61YRulOtm2pVNv8RbgK9JxkxIPZ.v7Au1/AK', '1', 0, NULL, '2021-05-08 11:29:29', 4),
 (3391, 1960, 1, 'PFISL-006', '$2y$10$spnOsPYH7lsTv2IBr.FmzOm/vpkY9jIaO56gXMZQEVvBc7yERuZjO', '1', 0, NULL, '2021-06-16 11:57:21', 5),
 (3392, 1961, 1, 'PFISL-007', '$2y$10$eJyszmVYcEkE6U5YbnDPv.DwECi79bDODibDSj89pZowC7FduQd4S', '1', 0, NULL, NULL, 4),
 (3393, 1962, 1, 'PFISL-008', '$2y$10$UfalpEnJ4lLfwwvBKlNBUu83OXGpztiZV61ShHLraNQB3hJ/8bYAu', '1', 0, NULL, '2021-06-16 11:57:56', 5),
 (3394, 1963, 1, 'PFISL-009', '$2y$10$KCM3IWJX10jj6JWQnHDrauDOm6i9AwfaSSUI0dYA9MTPPbem9H6uK', '1', 0, NULL, '2021-06-08 03:44:30', 1),
-(3395, 1964, 1, 'PFISL-010', '$2y$10$B.A6FQ4QXIugmLHaCB/anegTwQwjHSMS8Y/FdslI0QK2EUeUqgaIW', '1', 0, NULL, NULL, 4),
+(3395, 1964, 0, 'PFISL-010', '$2y$10$B.A6FQ4QXIugmLHaCB/anegTwQwjHSMS8Y/FdslI0QK2EUeUqgaIW', '1', 0, NULL, NULL, 4),
 (3396, 1965, 1, 'PFISL-011', '$2y$10$WCfYi6ECvwI3jebXGmSA9OpeD8w3jvWypS1EHJSUQiId86b.r9Qoy', '1', 0, NULL, NULL, 5),
 (3397, 1966, 1, 'PFISL-012', '$2y$10$g9g2ppZDizUEtqHN0Coyi.OQU.38aRIHns2slL6Ui7QCF7VKJR1Iu', '1', 0, NULL, '2021-06-09 12:05:28', 1),
 (3398, 1967, 1, 'PFISL-013', '$2y$10$eWHXKbcxBeb5Oh4dnVyYFerLWi5kh9EEjA.3TI6gnHJ.Ua2oDcZpy', '1', 0, NULL, '2021-04-10 09:56:12', 4),
@@ -39871,7 +39894,7 @@ INSERT INTO `tbl_sysuser` (`id`, `suser_empid`, `suser_emptype`, `email`, `passw
 (3403, 1972, 1, 'PFISL-018', '$2y$10$H/ymxfXb8JmdNI0cSk4IXe6T9mPozJ0mSnegxDkWI7ZeplKne6kna', '1', 0, NULL, NULL, 5),
 (3404, 1973, 1, 'PFISL-019', '$2y$10$8riIqjsT8Ql1juo1ENUoteR9FO09y8ptAgUTEyAZ9UToLFX.sPGsK', '1', 0, NULL, NULL, 5),
 (3405, 1974, 0, 'PFISL-020', '$2y$10$8LyW3PqRwl87.hRexmxHOeI8SXLn9J951yDqeUZqJDSGbJku.x4iS', '1', 0, NULL, '2021-04-21 04:42:57', 5),
-(3406, 1975, 1, 'PFISL-021', '$2y$10$KlDXKSj4EDvUafjMigwsB.vH0buQntUqaotqNZC5Val.TzU/DLDAC', '1', 0, NULL, NULL, 5),
+(3406, 1975, 0, 'PFISL-021', '$2y$10$KlDXKSj4EDvUafjMigwsB.vH0buQntUqaotqNZC5Val.TzU/DLDAC', '1', 0, NULL, NULL, 5),
 (3407, 1976, 1, 'PFISL-022', '$2y$10$Up0t9HjSK4CbAk09uoeKSOmUYIYyOJ5MwD4HG80LI2CNPksBblTrC', '1', 0, NULL, NULL, 5),
 (3408, 1977, 1, 'PFISL-023', '$2y$10$uyx1cuhEjidIrmZq3bsigOGFFmKb7o6/RiqtsbgwiRpkDGupp/upi', '1', 0, NULL, NULL, 5),
 (3409, 1978, 1, 'PFISL-024', '$2y$10$08nkN/wOB6uOUHRdhlv40e1qqvZVl25OMY.kzeGzLqulvDaofU2ha', '1', 0, NULL, NULL, 4),
@@ -39890,7 +39913,7 @@ INSERT INTO `tbl_sysuser` (`id`, `suser_empid`, `suser_emptype`, `email`, `passw
 (3422, 1991, 1, 'PFISL-037', '$2y$10$MVc13gxi.Zy4XzkTQB6DNOJR17Powg/5HfcYplg.fpl4sl9EQSuja', '1', 0, NULL, NULL, 5),
 (3423, 1992, 1, 'PFISL-038', '$2y$10$fWQnSLLcUxKheuW/.haSqePdKRWtawm9G7DtQ8YplTCoMP8RNdX5K', '1', 0, NULL, NULL, 5),
 (3424, 1993, 1, 'PFISL-039', '$2y$10$62pdLBIgy7v.Tdmj0AORB.YxZ/nnA7ZZ9YC2CyoxfNJ04fXT.Fbq.', '1', 0, NULL, NULL, 5),
-(3425, 1994, 1, 'PFISL-040', '$2y$10$k/QmPuvN7FnzXjXC0iykIOb/jIxAl2U7ImTI68UeiwssxZUrFu.BC', '1', 0, NULL, '2021-04-10 10:16:02', 5),
+(3425, 1994, 0, 'PFISL-040', '$2y$10$k/QmPuvN7FnzXjXC0iykIOb/jIxAl2U7ImTI68UeiwssxZUrFu.BC', '1', 0, NULL, '2021-04-10 10:16:02', 5),
 (3426, 1995, 1, 'PFISL-041', '$2y$10$kcspHSO6vjBnpoY7.KBO1.y9b1LZ5uMZU.rfQGgpSXC6794pRrme.', '1', 0, NULL, NULL, 5),
 (3427, 1996, 1, 'PFISL-042', '$2y$10$.DSG5Dz/CpLwFPjD95VP1.J9lFSbPcvt8dyY2.uuuATapTi7MPEw2', '1', 0, NULL, NULL, 5),
 (3428, 1997, 1, 'PFISL-043', '$2y$10$vXhunCIaLrL/GmihPoFb5ubhhb4jkj0ThuYUoVY/G8WgTXWXWdBaO', '1', 0, NULL, NULL, 5),
@@ -39930,7 +39953,9 @@ INSERT INTO `tbl_sysuser` (`id`, `suser_empid`, `suser_emptype`, `email`, `passw
 (3462, 2031, 1, 'pfisl-500', '$2y$10$lt5TToRiZEA.q8W8Pv8IGO2eMcJy8So8dAYkSb/uT81x//HsRNhZK', '1', 0, NULL, NULL, 5),
 (3463, 2032, 1, '12121', '$2y$10$fFkxeM8E0HtgmY8QjA8ze.mHKDDmrDq4egRaift/DRvFp.b7Ts5uq', '1', 0, NULL, NULL, 5),
 (3464, 2033, 1, 'ABCD', '$2y$10$iWSrMwo.QvQhF.yk2rX6Vu14QTStUdyPh5uiftP0WQe7LD01LKfHu', '1', 0, NULL, NULL, 5),
-(3465, 2034, 1, '151', '$2y$10$gxUakyNgYl0hAsfGFqleJe4DqVce5KyOSwRXrWSh7kFO4vUbsifKO', '1', 0, NULL, NULL, 5);
+(3465, 2034, 1, '151', '$2y$10$gxUakyNgYl0hAsfGFqleJe4DqVce5KyOSwRXrWSh7kFO4vUbsifKO', '1', 0, NULL, NULL, 5),
+(3466, 2031, 1, 'PFISL-999', '$2y$10$OY8khs3Yu2hV0lQd8gbBu.nBDTh1xo2YNvIo1p5CMcRhv2C9SKZgS', '1', 0, NULL, NULL, 5),
+(3467, 2032, 1, 'fdsfa', '$2y$10$VW1iB90XCrGnZPuAu/RQAOX3xsyFKvWMpu/F.lh4PacvyXNmCloC6', '1', 0, NULL, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -40015,14 +40040,14 @@ INSERT INTO `tbl_taxchallan` (`id`, `emp_id`, `challan_no`, `month`, `year`) VAL
 CREATE TABLE `tbl_ticket` (
   `ticket_id` int(8) NOT NULL,
   `ticket_code` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ticket_topic` text COLLATE utf8_unicode_ci,
-  `ticket_desc` text COLLATE utf8_unicode_ci,
+  `ticket_topic` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ticket_desc` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `ticket_submitted_by` int(8) DEFAULT NULL,
   `ticket_submitted_at` datetime DEFAULT NULL,
   `ticket_updated_at` datetime DEFAULT NULL,
   `ticket_parent_id` int(8) DEFAULT NULL,
   `ticket_depart_id` int(8) DEFAULT NULL,
-  `ticket_status` int(1) DEFAULT '1'
+  `ticket_status` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -40044,9 +40069,9 @@ CREATE TABLE `tbl_totalworkinghours` (
   `total_osd` time DEFAULT NULL,
   `ot` time DEFAULT NULL,
   `night` double DEFAULT NULL,
-  `present` int(1) DEFAULT '1',
+  `present` int(1) DEFAULT 1,
   `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `generated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `generated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -44543,9 +44568,9 @@ CREATE TABLE `tbl_workingdayadjustment` (
   `emp_id` int(8) DEFAULT NULL,
   `to` date DEFAULT NULL,
   `for` date DEFAULT NULL,
-  `status` int(1) DEFAULT '0',
+  `status` int(1) DEFAULT 0,
   `examined_by` int(8) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -45071,7 +45096,7 @@ ALTER TABLE `tbl_appmodule`
 -- AUTO_INCREMENT for table `tbl_appmodulepriority`
 --
 ALTER TABLE `tbl_appmodulepriority`
-  MODIFY `amp_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4165;
+  MODIFY `amp_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4440;
 
 --
 -- AUTO_INCREMENT for table `tbl_bankcash`
@@ -45119,7 +45144,7 @@ ALTER TABLE `tbl_country`
 -- AUTO_INCREMENT for table `tbl_dailyshift`
 --
 ALTER TABLE `tbl_dailyshift`
-  MODIFY `ds_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=391;
+  MODIFY `ds_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=393;
 
 --
 -- AUTO_INCREMENT for table `tbl_department`
@@ -45149,13 +45174,13 @@ ALTER TABLE `tbl_documents`
 -- AUTO_INCREMENT for table `tbl_emphistory`
 --
 ALTER TABLE `tbl_emphistory`
-  MODIFY `eh_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5812;
+  MODIFY `eh_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5836;
 
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  MODIFY `emp_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2031;
+  MODIFY `emp_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2033;
 
 --
 -- AUTO_INCREMENT for table `tbl_employee_types`
@@ -45221,7 +45246,7 @@ ALTER TABLE `tbl_jobskill`
 -- AUTO_INCREMENT for table `tbl_leaveapplication`
 --
 ALTER TABLE `tbl_leaveapplication`
-  MODIFY `leave_id` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `leave_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_leavetype`
@@ -45281,7 +45306,7 @@ ALTER TABLE `tbl_payment`
 -- AUTO_INCREMENT for table `tbl_payroll`
 --
 ALTER TABLE `tbl_payroll`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2125;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2139;
 
 --
 -- AUTO_INCREMENT for table `tbl_payrollsummery`
@@ -45317,7 +45342,7 @@ ALTER TABLE `tbl_priority`
 -- AUTO_INCREMENT for table `tbl_priorityrole`
 --
 ALTER TABLE `tbl_priorityrole`
-  MODIFY `prrole_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3887;
+  MODIFY `prrole_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4251;
 
 --
 -- AUTO_INCREMENT for table `tbl_probationperiodnotifications`
@@ -45425,7 +45450,7 @@ ALTER TABLE `tbl_switchincentive`
 -- AUTO_INCREMENT for table `tbl_sysuser`
 --
 ALTER TABLE `tbl_sysuser`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3466;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3468;
 
 --
 -- AUTO_INCREMENT for table `tbl_taxchallan`

@@ -238,10 +238,12 @@ $route=Route::getFacadeRoot()->current()->uri();
 
                 <div class="tools"> </div>
             </div>
-            <div class="portlet-body">
+            <div class="kt-portlet__body">
               <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{{URL::to('')}}" id="data_form">
               {{ csrf_field() }}
+               {{--<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">--}}
                <table class="table table-striped table-bordered table-hover" id="sample_3">
+
 
                       <thead>
                         <tr>
